@@ -337,16 +337,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1764471479,
-        "narHash": "sha256-xG9OllpGJAX0BdsQ06N7TODTVVjiHtwpd2yLdQpQBDQ=",
+        "lastModified": 1764406085,
+        "narHash": "sha256-CYbMp8hwuOf4umokSNp+t1s4Hjd4vxXq4S5CD+xvgNs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0b9b52b21c79d7be01f55c10df8664e877be9884",
+        "rev": "9561691c9f450fad7c3526916e1c4f44be0d1192",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-25.11",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -413,11 +413,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764464432,
-        "narHash": "sha256-q7SUhWUVrg04bpx8inftY6jFc84cy8RFLJpCAGpHSjY=",
+        "lastModified": 1764506821,
+        "narHash": "sha256-ZERohTDFq1ikwDGUxBZ9JNE6cDWCsj8OB6foLsrZZuM=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "1c9d659635eee3a0937ebbbe755713e92637225a",
+        "rev": "225e6d391447c30b0311e3a3d0f6386dc5307e86",
         "type": "github"
       },
       "original": {
@@ -496,26 +496,6 @@
         "type": "github"
       }
     },
-    "quickshell": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1764045583,
-        "narHash": "sha256-W24ReyRrhOKTKIsuAMkY5hnVlCufGoONM79sjUoyQkk=",
-        "ref": "refs/heads/master",
-        "rev": "e9bad67619ee9937a1bbecfc6ad3b4231d2ecdc3",
-        "revCount": 709,
-        "type": "git",
-        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
-      }
-    },
     "root": {
       "inputs": {
         "antigravity-nix": "antigravity-nix",
@@ -525,7 +505,6 @@
         "nixvim": "nixvim",
         "noctalia": "noctalia",
         "nvf": "nvf",
-        "quickshell": "quickshell",
         "stylix": "stylix"
       }
     },

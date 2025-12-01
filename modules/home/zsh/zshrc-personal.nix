@@ -9,8 +9,8 @@
     #!/usr/bin/env zsh
     # Set defaults
     #
-    #export EDITOR="nvim"
-    #export VISUAL="nvim"
+    export EDITOR="hx"
+    export VISUAL="hx"
  
     #alias c="clear"
    

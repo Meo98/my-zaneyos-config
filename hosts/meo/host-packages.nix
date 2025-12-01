@@ -3,5 +3,9 @@
     audacity
     discord
     nodejs
+    vivaldi
+    tidal-hifi
+    bitwarden-desktop
+
   ];
 }
