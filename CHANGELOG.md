@@ -5,10 +5,29 @@
 
 ---
 
-# 🚀 **Current Release - ZaneyOS v2.5**
+# 🚀 **Current Release - ZaneyOS v2.5.2**
 
-#### 📅 **Updated: November 28th, 2025**
+#### 📅 **Updated: December 1st, 2025**
 
+- Fixed: Added power profiles daemon for noctalia
+- Fixed: `gpu-screen-recorder` not installed 
+   - Thanks to `@mugdad11` for finding them 
+- Fixed: Both rofi and noctalia clipboard
+  - Both were active on `SUPER + V`
+  - Now checks for waybar or noctalia shell
+  - Thanks to `@mugdad11` for finding it
+- Fixed: Laptop battery not showing in noctalia shell
+  - Thanks again `@mugdad11` for finding issue
+  - And doing the Merge Request to fix it
+  - `upower` package not installed and `upower` service not enabled
+
+- NEW: Added `quickshell-overview` integration
+  - Workspace overview with live window previews
+  - Toggled via `SUPER + TAB` keybind
+  - Drag-and-drop workspace navigation
+  - Uses IPC for seamless integration with Hyprland
+  - QML code managed via Home Manager activation script
+- FIXED: Username wasn't reliably being set in `flake.nix`
 - Set ZaneyOS to NixOS v25.11 stable branch
 - Moved to `nixvim` for NeoVIM configuration
   - Works better
@@ -35,28 +54,31 @@
   - Moved screenshots into a markdown suummary to reduce clutter
 - Added script to fix `doom iedit` update error
 - Moved some modules/home/*.nix files to their own subdir
-  - Terminals 
+  - Terminals
     - Alacritty
     - ghostty
     - Kitty
     - tmux
-    - Wezterm 
-  - Editors 
+    - Wezterm
+  - Editors
     - antigravity
-    - emacs 
+    - emacs
     - evil-helix
-    - nixvim 
-    - nvf 
-    - vscode 
-  - CLI/Utils 
+    - nixvim
+    - nvf
+    - vscode
+  - CLI/Utils
     - bat
-    - Btop 
-    - Bottom 
-    - cava 
-    - fzf 
-    - git 
-    - gh 
-    - lazygit  
+    - Btop
+    - Bottom
+    - cava
+    - fzf
+    - git
+    - gh
+    - lazygit
+
+    Contributors: 
+   `@mugdad11`
 
 #### 📅 **Updated: September 18th, 2025**
 

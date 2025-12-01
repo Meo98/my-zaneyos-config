@@ -1,8 +1,8 @@
-{
-  pkgs,
-  host,
-  ...
-}: let
+{ pkgs
+, host
+, ...
+}:
+let
   vars = import ../../hosts/${host}/variables.nix;
   inherit (vars) barChoice;
   # Noctalia-specific packages
@@ -13,8 +13,9 @@
         matugen # color palette generator needed for noctalia-shell
         app2unit # launcher for noctalia-shell
       ]
-    else [];
-in {
+    else [ ];
+in
+{
   programs = {
     neovim = {
       enable = true;
@@ -60,6 +61,8 @@ in {
       gedit # Simple Graphical Text Editor
       gemini-cli # CLI AI client ONLY (optional)
       gimp # Great Photo Editor
+      gpu-screen-recorder # needed for nnoctalia-shell 
+      power-profiles-daemon # needed for noctalia-shell power cycle
       mesa-demos # needed for inxi diag util
       tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
       htop # Simple Terminal Based System Monitor
@@ -87,6 +90,7 @@ in {
       unrar # Tool For Handling .rar Files
       unzip # Tool For Handling .zip Files
       usbutils # Good Tools For USB Devices
+      upower # noctalia shell battery
       uwsm # Universal Wayland Session Manager (optional must be enabled)
       v4l-utils # Used For Things Like OBS Virtual Camera
       warp-terminal # Terminal with AI support build in
