@@ -1,11 +1,17 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    audacity
+    audacity 
     discord
     nodejs
-    vivaldi
-    tidal-hifi
-    bitwarden-desktop
+    vivaldi #browser
+    tidal-hifi #musik
+    bitwarden-desktop #password-manager
+    kdePackages.qtmultimedia 
+    quickshell
+    google-chrome
+    insync #google drive sync
 
+    firefox
   ];
 }
+
