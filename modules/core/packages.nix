@@ -1,8 +1,8 @@
-{ pkgs
-, host
-, ...
-}:
-let
+{
+  pkgs,
+  host,
+  ...
+}: let
   vars = import ../../hosts/${host}/variables.nix;
   inherit (vars) barChoice;
   # Noctalia-specific packages
@@ -13,9 +13,8 @@ let
         matugen # color palette generator needed for noctalia-shell
         app2unit # launcher for noctalia-shell
       ]
-    else [ ];
-in
-{
+    else [];
+in {
   programs = {
     neovim = {
       enable = true;
@@ -61,7 +60,7 @@ in
       gedit # Simple Graphical Text Editor
       gemini-cli # CLI AI client ONLY (optional)
       gimp # Great Photo Editor
-      gpu-screen-recorder # needed for nnoctalia-shell 
+      gpu-screen-recorder # needed for nnoctalia-shell
       power-profiles-daemon # needed for noctalia-shell power cycle
       mesa-demos # needed for inxi diag util
       tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
@@ -79,6 +78,7 @@ in
       nixfmt-rfc-style # Nix Formatter
       nwg-displays # configure monitor configs via GUI
       onefetch # provides zsaneyos build info on current system
+      pandoc # format MD to HTML for cheatsheet parser
       pavucontrol # For Editing Audio Levels & Devices
       pciutils # Collection Of Tools For Inspecting PCI Devices
       picard # For Changing Music Metadata & Getting Cover Art

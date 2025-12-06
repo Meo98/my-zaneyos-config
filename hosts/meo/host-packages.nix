@@ -7,9 +7,9 @@
     tidal-hifi #musik
     bitwarden-desktop #password-manager
     kdePackages.qtmultimedia 
-    quickshell
     google-chrome
     insync #google drive sync
+    antigravity #google ide
 
     firefox
   ];

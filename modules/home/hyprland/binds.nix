@@ -50,7 +50,8 @@ in {
         # ============= TERMINALS =============
         "$modifier,Return, Terminal, exec, ${terminal}"
         # ============= APPLICATION LAUNCHERS =============
-        "$modifier,K, Keybinds Help, exec, list-keybinds"
+        "$modifier,K, Keybinds Search Tool, exec, qs-keybinds"
+        "$modifier SHIFT,K, Legacy Keybinds Menu, exec, list-keybinds"
         "$modifier SHIFT,D, Discord, exec, discord"
         "$modifier SHIFT,W, Web Search, exec, web-search"
         "$modifier ALT,W, Wallpaper Setter, exec, wallsetter"

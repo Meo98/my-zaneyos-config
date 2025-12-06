@@ -24,10 +24,10 @@
     };
 
     # Quickshell ist auf Unstable oft kaputt, daher hier auskommentiert
-    # quickshell = {
-    #   url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
