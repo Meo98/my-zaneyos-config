@@ -5,32 +5,33 @@ in
 {
   programs.git = {
     enable = true;
-
     settings = {
       user = {
         name = "${gitUsername}";
         email = "${gitEmail}";
       };
 
-      # FOSS-friendly settings
-      push.default = "simple"; # Match modern push behavior
+      # 1. Zaneys Standard: Cache für alles andere (z.B. eigener Server)
       credential.helper = "cache --timeout=7200";
-      init.defaultBranch = "main"; # Set default new branches to 'main'
-      log.decorate = "full"; # Show branch/tag info in git log
-      log.date = "iso"; # ISO 8601 date format
-      # Conflict resolution style for readable diffs
+
+      # 2. Spezial-Regel für GitHub
+      "credential \"https://github.com\"".helper = "!gh auth git-helper";
+      "credential \"https://gist.github.com\"".helper = "!gh auth git-helper";
+
+      # 3. NEU: Spezial-Regel für GitLab
+      "credential \"https://gitlab.com\"".helper = "!glab auth git-helper";
+
+      push.default = "simple";
+      init.defaultBranch = "main";
+      log.decorate = "full";
+      log.date = "iso";
       merge.conflictStyle = "diff3";
 
-      # Optional: FOSS-friendly Git aliases
       alias = {
-        br = "branch --sort=-committerdate";
-        co = "checkout";
-        df = "diff";
-        com = "commit -a";
-        gs = "stash";
-        gp = "pull";
-        lg = "log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %C(green)(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit";
         st = "status";
+        # Bequeme Login-Aliase, damit du dir die langen Befehle nicht merken musst:
+        login-github = "!gh auth login";
+        login-gitlab = "!glab auth login";
       };
     };
   };
