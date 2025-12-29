@@ -1,6 +1,6 @@
 [English](FAQ.md) | [Español](FAQ.es.md)
 
-# 💬 Preguntas frecuentes de ZaneyOS para v2.5.3
+# 💬 Preguntas frecuentes de ZaneyOS para v2.5.5
 
 - **Fecha:** 3 de deciembre de 2025
 

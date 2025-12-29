@@ -234,7 +234,7 @@ else
 fi
 
 print_header "Cloning ZaneyOS Repository"
-git clone https://gitlab.com/zaney/zaneyos.git -b main --depth=1 ~/zaneyos
+git clone https://gitlab.com/zaney/zaneyos.git -b noctalia-upd --depth=1 ~/zaneyos
 cd ~/zaneyos || exit 1
 
 print_header "Git Configuration"
@@ -297,6 +297,31 @@ case "$keyboardLayout" in
 esac
 read -rp "Enter your keyboard variant (e.g., dvorak) [ $variant_suggestion ]: " keyboardVariant
 keyboardVariant="${keyboardVariant:-$variant_suggestion}"
+
+# Normalize layout/variant to avoid accidentally forcing US for non-US layouts
+# - Accept uppercase inputs; treat BR/DE/FR/ES/IT/RU/UK in variant field as layout
+# - Map us-intl/intl and dvorak/colemak/workman to layout=us + appropriate variant
+keyboardLayout=$(echo "$keyboardLayout" | tr '[:upper:]' '[:lower:]')
+keyboardVariant=$(echo "$keyboardVariant" | tr '[:upper:]' '[:lower:]')
+
+case "$keyboardLayout" in
+  us-intl|intl)
+    keyboardLayout="us"
+    if [ -z "$keyboardVariant" ]; then keyboardVariant="intl"; fi
+    ;;
+  dvorak|colemak|workman)
+    if [ -z "$keyboardVariant" ]; then keyboardVariant="$keyboardLayout"; fi
+    keyboardLayout="us"
+    ;;
+  *) ;;
+esac
+
+# If a layout accidentally ended up in the variant field, fix it
+if [[ "$keyboardVariant" =~ ^(us|br|de|fr|es|it|ru|uk)$ ]]; then
+  keyboardLayout="$keyboardVariant"
+  keyboardVariant=""
+fi
+
 if [ -z "$keyboardVariant" ]; then
   echo -e "${GREEN}✓ Keyboard variant set to: none${NC}"
 else

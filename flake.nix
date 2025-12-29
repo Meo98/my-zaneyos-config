@@ -1,29 +1,36 @@
 {
-  description = "ZaneyOS Stable";
+  description = "ZaneyOS Stable (25.11)";
 
   inputs = {
-    # Wir nutzen hier die offiziellen STABLE Branches
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11"; # Stable Version
 
-    nvf.url = "github:notashelf/nvf";
-    stylix.url = "github:danth/stylix/release-25.11"; # Passend zu Stable
+    stylix = {
+      url = "github:danth/stylix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
+
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Quickshell ist auf Unstable oft kaputt, daher hier auskommentiert
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,46 +40,80 @@
       url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake/beta";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    affinity-nix = {
+      url = "github:mrshmllow/affinity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    { nixpkgs
-    , home-manager
-    , nixvim
-    , nix-flatpak
-    , ...
-    } @ inputs:
-    let
-      system = "x86_64-linux";
-      host = "meo";
-      profile = "nvidia-laptop";
-      username = "meo";
+  outputs = inputs@{ self, nixpkgs, nix-flatpak, ... }:
+  let
+    lib = nixpkgs.lib;
 
-      mkNixosConfig = gpuProfile:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-            inherit username;
-            inherit host;
-            inherit profile;
-          };
-          modules = [
-            ./hosts/${host}
-            ./modules/core/overlays.nix
-            ./profiles/${gpuProfile}
-            nix-flatpak.nixosModules.nix-flatpak
-          ];
-        };
-    in
-    {
-      nixosConfigurations = {
-        amd = mkNixosConfig "amd";
-        nvidia = mkNixosConfig "nvidia";
-        nvidia-laptop = mkNixosConfig "nvidia-laptop";
-        amd-hybrid = mkNixosConfig "amd-hybrid";
-        intel = mkNixosConfig "intel";
-        vm = mkNixosConfig "vm";
-      };
+    system = "x86_64-linux";
+    username = "meo";
+    defaultHost = "meo";
+    defaultProfile = "nvidia-laptop";
+
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
     };
+
+    mkNixosConfig = { host ? defaultHost, profile ? defaultProfile }:
+      lib.nixosSystem {
+        inherit system;
+
+        specialArgs = {
+          inherit inputs username host profile;
+        };
+
+        modules = [
+          ./hosts/${host}
+          ./modules/core/overlays.nix
+          ./profiles/${profile}
+          nix-flatpak.nixosModules.nix-flatpak
+        ];
+      };
+  in
+  {
+    nixosConfigurations = {
+      amd           = mkNixosConfig { profile = "amd"; };
+      nvidia        = mkNixosConfig { profile = "nvidia"; };
+      nvidia-laptop = mkNixosConfig { profile = "nvidia-laptop"; };
+      amd-hybrid    = mkNixosConfig { profile = "amd-hybrid"; };
+      intel         = mkNixosConfig { profile = "intel"; };
+      vm            = mkNixosConfig { profile = "vm"; };
+    };
+
+    devShells.${system}.default = pkgs.mkShell {
+      packages = with pkgs; [
+        python312
+        python312Packages.pip
+        python312Packages.streamlit
+        python312Packages.venvShellHook
+      ];
+
+      venvDir = ".venv";
+
+      postVenvCreation = ''
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+      '';
+
+      postShellHook = ''
+        echo "✅ DevShell ready"
+        echo "Python: $(python --version)"
+        echo "Pip: $(pip --version)"
+        echo "Streamlit: $(streamlit --version)"
+      '';
+    };
+  };
 }

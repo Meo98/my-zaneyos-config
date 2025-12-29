@@ -5,14 +5,25 @@
 
 ---
 
-# 🚀 **Current Release - ZaneyOS v2.5.3**
+# 🚀 **Current Release - ZaneyOS v2.5.4**
 
 #### 📅 **Updated: December 3rd, 2025**
 
+- Added:
+  - Cheatsheets from ddubsOS
+    - Covers, terminals, emacs, etc
+    - In English and Spanish
+  - Zen browser
+    - Via Flake, for current builds
+  - Nano customized config
+- Pinned: `nixvim` to v25.11 branch
 - Added: Support for `kb_variants` at install time.
   - Keyboards, like `dvorak`, `coleman,` or `euro`
   - Configures, console, SDDM and Hyprland
 - Fixed: TUI greetd service name changed to `services.greetd`
+- Updated:
+  - `cachix settings updated for better speed
+  - Moved to its own `cacheix.nix` file
 
 #### 📅 **Updated: December 1st, 2025**
 
@@ -65,7 +76,7 @@
   - Updated Keybindings
   - Moved screenshots into a markdown suummary to reduce clutter
 - Added script to fix `doom iedit` update error
-- Moved some modules/home/*.nix files to their own subdir
+- Moved some modules/home/\*.nix files to their own subdir
   - Terminals
     - Alacritty
     - ghostty
@@ -112,7 +123,7 @@
 - 🛡️ Installer: Added defensive hostname validation and sanitization
   - Prevents invalid hostnames (e.g., with dots) from causing Nix evaluation
     errors
-  - Auto-sanitizes to a compliant hostname (letters/digits with '-' or '_', 1–63
+  - Auto-sanitizes to a compliant hostname (letters/digits with '-' or '\_', 1–63
     chars) and prompts for confirmation
   - Explicitly rejects 'default' to avoid template overwrites
 - 🧩 Nix: Added assertion in modules/core/network.nix for clearer errors if an
@@ -326,6 +337,7 @@
   - 📊 Added info on `zcli` utility
   - ⬆️ Updated `zcli` now uses `nh` util to select # of generations to keep
   - ➕ Added `zcli` CLI util. runs rebuild, update, garbage collection and diags
+
   ```text
   ❯ zcli
 

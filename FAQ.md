@@ -1,6 +1,6 @@
 [English](FAQ.md) | [Español](FAQ.es.md)
 
-# 💬 ZaneyOS FAQ for v2.5.3
+# 💬 ZaneyOS FAQ for v2.5.5
 
 - **Date:** 3-Decemnber-2025
 

@@ -7,68 +7,93 @@
 }:
 let
   vars = import ../../../hosts/${host}/variables.nix;
-  extraMonitorSettings = vars.extraMonitorSettings or "";
-  keyboardLayout = vars.keyboardLayout or "us";
+
+  keyboardLayout  = vars.keyboardLayout or "us";
   keyboardVariant = vars.keyboardVariant or "";
-  stylixImage = vars.stylixImage or null;
-  layoutIsVariant = builtins.elem keyboardLayout [ "dvorak" "colemak" "workman" "intl" "us-intl" ];
-  hyprKbLayout = if (keyboardVariant != "" || layoutIsVariant) then "us" else keyboardLayout;
-  hyprKbVariant = if (keyboardVariant != "") then keyboardVariant else if layoutIsVariant then keyboardLayout else "";
+  extraMonitorSettings = vars.extraMonitorSettings or "";
+
+  usVariants = [ "dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl" ];
+  normalizeUSVariant = v: if v == "us-intl" then "intl" else v;
+
+  layoutFromLayout =
+    if builtins.elem keyboardLayout usVariants then "us" else keyboardLayout;
+
+  variantFromLayout =
+    if builtins.elem keyboardLayout usVariants then normalizeUSVariant keyboardLayout else "";
+
+  layoutFromVariant =
+    if builtins.elem keyboardVariant usVariants then "us" else layoutFromLayout;
+
+  variantFinal =
+    if builtins.elem keyboardVariant usVariants then normalizeUSVariant keyboardVariant
+    else if variantFromLayout != "" then variantFromLayout
+    else keyboardVariant;
+
+  hyprKbLayout  = layoutFromVariant;
+  hyprKbVariant = variantFinal;
+
+  # eDP-1 scale 1.6 => logical width = 2560/1.6 = 1600
+  # Dadurch DP-1 sauber rechts daneben bei 1600x0
+  dp1X = 1600;
 in
 {
   home.packages = with pkgs; [
-    swww
-    grim
-    slurp
-    wl-clipboard
-    swappy
-    ydotool
-    hyprpolkitagent
-    hyprshot
-    hyprpicker
-    #hyprland-qtutils # needed for banners and ANR messages
+    swww grim slurp wl-clipboard swappy ydotool
+    hyprpolkitagent hyprshot hyprpicker kanata
   ];
+
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"
   ];
-  # Place Files Inside Home Directory
-  home.file = {
-    "Pictures/Wallpapers" = {
-      source = ../../../wallpapers;
-      recursive = true;
-    };
-    ".face.icon".source = ./face.jpg;
-    ".config/face.jpg".source = ./face.jpg;
-  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland;
+
     systemd = {
       enable = true;
       enableXdgAutostart = true;
       variables = [ "--all" ];
     };
-    xwayland = {
-      enable = true;
-    };
+
+    xwayland = { enable = true; };
+
     settings = {
-      input = ({
-        kb_layout = hyprKbLayout;
-        kb_options = [
-          "grp:alt_caps_toggle"
-          "caps:super"
-        ];
-        numlock_by_default = true;
-        repeat_delay = 300;
-        follow_mouse = 1;
-        float_switch_override_focus = 0;
-        sensitivity = 0;
-        touchpad = {
-          natural_scroll = true;
-          disable_while_typing = true;
-          scroll_factor = 0.8;
-        };
-      } // lib.optionalAttrs (hyprKbVariant != "") { kb_variant = hyprKbVariant; });
+      # ----------------------------
+      # MONITORE (WICHTIG!)
+      # ----------------------------
+      # Ziel: KEIN y-offset mehr (141px weg), damit XWayland/Wine nicht driftet.
+      monitor = [
+        "eDP-1,2560x1600@240,0x0,1.6"
+        "DP-1,2560x1440@60,${toString dp1X}x0,1"
+      ];
+
+      # ----------------------------
+      # XWAYLAND / WINE FIX
+      # ----------------------------
+      xwayland = {
+        force_zero_scaling = false;
+        use_nearest_neighbor = true;
+      };
+
+      input =
+        ({
+          kb_layout = hyprKbLayout;
+          kb_options = [ "grp:alt_caps_toggle" ];
+          numlock_by_default = true;
+          repeat_delay = 300;
+          repeat_rate = 50;
+          follow_mouse = 1;
+          float_switch_override_focus = 0;
+          sensitivity = 0;
+
+          touchpad = {
+            natural_scroll = true;
+            disable_while_typing = true;
+            scroll_factor = 0.8;
+          };
+        }
+        // lib.optionalAttrs (hyprKbVariant != "") { kb_variant = hyprKbVariant; });
 
       gestures = {
         gesture = [ "3, horizontal, workspace" ];
@@ -100,12 +125,8 @@ in
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = false;
-        vfr = true; # Variable Frame Rate
-        vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
-        # Screen flashing to black momentarily or going black when app is fullscreen
-        # Try setting vrr to 0
-
-        #  Application not responding (ANR) settings
+        vfr = true;
+        vrr = 2;
         enable_anr_dialog = true;
         anr_missed_pings = 15;
       };
@@ -139,17 +160,15 @@ in
       };
 
       cursor = {
+        inactive_timeout = 3;
         sync_gsettings_theme = true;
-        no_hardware_cursors = 2; # change to 1 if want to disable
+        no_hardware_cursors = 2;
         enable_hyprcursor = false;
         warp_on_change_workspace = 2;
         no_warps = true;
       };
 
       render = {
-        # Disabling as no longer supported
-        #explicit_sync = 1; # Change to 1 to disable
-        #explicit_sync_kms = 1;
         direct_scanout = 0;
       };
 
@@ -159,21 +178,36 @@ in
         mfact = 0.5;
       };
 
-      # Ensure Xwayland windows render at integer scale; compositor scales them
-      xwayland = {
-        force_zero_scaling = true;
-      };
-    };
+      # ----------------------------
+      # AFFINITY / WINE REGELN
+      # ----------------------------
+      # WICHTIG: Klasse ist bei dir "affinity.exe" (klein)!
 
-    extraConfig = "
-      monitor=,preferred,auto,auto
-      monitor=Virtual-1,1920x1080@60,auto,1
-      ${
-            extraMonitorSettings
-          }
-      # To enable blur on waybar uncomment the line below
-      # Thanks to SchotjeChrisman
-      #layerrule = blur,waybar
-    ";
+      windowrulev2 = [
+        # Affinity erkennen (class ist bei dir "affinity.exe")
+        "monitor DP-1, class:^(affinity\\.exe|Affinity\\.exe)$"
+        "tile, class:^(affinity\\.exe|Affinity\\.exe)$"
+
+        # DAS ist der wichtige Teil für “1 window fills screen”
+        "suppressevent maximize, class:^(affinity\\.exe|Affinity\\.exe)$"
+
+        # Dialoge
+        "center, title:^(Open|Save|Export|Print).*"
+        "float,  title:^(Open|Save|Export|Print).*"
+
+        # Verhindert, dass Affinity versucht, Transparenz/Blur falsch zu berechnen
+          "noblur, class:^(affinity\\.exe|Affinity\\.exe)$"
+          "noshadow, class:^(affinity\\.exe|Affinity\\.exe)$"
+  
+          # Manchmal hilft es, Rounding für Wine-Apps zu deaktivieren, damit die Ränder nicht abschneiden
+          "rounding 0, class:^(affinity\\.exe|Affinity\\.exe)$"
+  
+          # Zwingt Affinity dazu, sich wie ein "dummes" X11 Fenster zu verhalten (hilft oft bei Floating-Problemen)
+          "noanim, class:^(affinity\\.exe|Affinity\\.exe)$"      ];
+     };
+
+    extraConfig = ''
+      ${extraMonitorSettings}
+    '';
   };
 }

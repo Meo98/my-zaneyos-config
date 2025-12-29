@@ -27,10 +27,27 @@
   # extraMonitorSettings = "monitor = HDMI-A-1,1920x1080@60,auto,1";
   # You can configure multiple monitors.
   # Inside the quotes, create a new line for each monitor.
-  extraMonitorSettings = "
+  extraMonitorSettings = ''
 
-    ";
+    # Work config
+    # # Oben links
+    # monitor = DP-7,1920x1080@60,0x0,1
 
+    # # Oben rechts
+    # monitor = DP-8,1920x1080@60,1920x0,1
+
+    # # Laptop darunter (wie im Screenshot)
+    # monitor = eDP-1,2560x1600@240,2089x1080,1.6
+
+    # home config
+    monitor = ,preferred,auto,1
+    # Laptop links
+    monitor = eDP-1,2560x1600@240,0x0,1.6
+    # Externer rechts, leicht tiefer (wie dein Screenshot)
+    monitor = DP-1,preferred,1600x141,1
+
+  '';
+  
   # Bar/Shell Settings
   # Choose between noctalia or waybar
   barChoice = "noctalia";
@@ -59,6 +76,9 @@
   intelID = "PCI:0:2:0";
   amdgpuID = "PCI:5:0:0";
   nvidiaID = "PCI:1:0:0";
+
+  enableAffinity = true;
+
 
   # Enable NFS
   enableNFS = true;

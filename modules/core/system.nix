@@ -1,4 +1,4 @@
-{host, ...}: let
+{host, pkgs, ...}: let
   vars = import ../../hosts/${host}/variables.nix;
   consoleKeyMap = vars.consoleKeyMap or "us";
 in {
@@ -29,9 +29,22 @@ in {
   };
   environment.variables = {
     NIXOS_OZONE_WL = "1";
-    ZANEYOS_VERSION = "2.5.4";
+    ZANEYOS_VERSION = "2.5.5";
     ZANEYOS = "true";
   };
+
+  # --- External monitor brightness via DDC/CI (HDMI/DP) ---
+  hardware.i2c.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    ddcutil
+  ];
+
+  users.users.meo.extraGroups = [ "i2c" ];
+
+  services.udev.extraRules = ''
+    KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+  '';
   console.keyMap = "${consoleKeyMap}";
   system.stateVersion = "23.11"; # Do not change!
 }

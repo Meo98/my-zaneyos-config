@@ -10,17 +10,17 @@
   noctaliaBind =
     if barChoice == "noctalia"
     then [
-      "$modifier,D, Noctalia Launcher, exec, qs -c noctalia-shell ipc call launcher toggle"
-      "$modifier SHIFT,Return, Noctalia Launcher, exec, qs -c noctalia-shell ipc call launcher toggle"
-      "$modifier,M, Noctalia Notifications, exec, qs -c noctalia-shell ipc call notifications toggle"
-      "$modifier,V, Noctalia Clipboard, exec, qs -c noctalia-shell ipc call launcher clipboard"
-      "$modifier ALT,P, Noctalia Settings, exec, qs -c noctalia-shell ipc call settings toggle"
-      "$modifier SHIFT,comma, Noctalia Settings, exec, qs -c noctalia-shell ipc call settings toggle"
-      "$modifier ALT,L, Noctalia Lock Screen, exec, qs -c noctalia-shell ipc call sessionMenu lockAndSuspend"
-      "$modifier SHIFT,Y, Noctalia Wallpaper, exec, qs -c noctalia-shell ipc call wallpaper toggle"
-      "$modifier,X, Noctalia Power Menu, exec, dms qs -c noctalia-shell ipc call sessionMenu toggle"
-      "$modifier,C, Noctalia Control Center, exec, qs -c noctalia-shell ipc call controlCenter toggle"
-      "$modifier CTRL,R, Noctalia Screen Recorder, exec, qs -c noctalia-shell ipc call screenRecorder toggle"
+      "$modifier,D, Noctalia Launcher, exec, noctalia-shell ipc call launcher toggle"
+      "$modifier SHIFT,Return, Noctalia Launcher, exec,  noctalia-shell ipc call launcher toggle"
+      "$modifier,M, Noctalia Notifications, exec, noctalia-shell ipc call notifications toggle"
+      "$modifier,V, Noctalia Clipboard, exec, noctalia-shell ipc call launcher clipboard"
+      "$modifier ALT,P, Noctalia Settings, exec, noctalia-shell ipc call settings toggle"
+      "$modifier SHIFT,comma, Noctalia Settings, exec, noctalia-shell ipc call settings toggle"
+      "$modifier ALT,L, Noctalia Lock Screen, exec, noctalia-shell ipc call sessionMenu lockAndSuspend"
+      "$modifier SHIFT,Y, Noctalia Wallpaper, exec, noctalia-shell ipc call wallpaper toggle"
+      "$modifier,X, Noctalia Power Menu, exec, dms noctalia-shell ipc call sessionMenu toggle"
+      "$modifier,C, Noctalia Control Center, exec, noctalia-shell ipc call controlCenter toggle"
+      "$modifier CTRL,R, Noctalia Screen Recorder, exec, noctalia-shell ipc call screenRecorder toggle"
     ]
     else [];
   # Rofi launcher bindings (only included when barChoice != "noctalia")
@@ -51,6 +51,7 @@ in {
         "$modifier,Return, Terminal, exec, ${terminal}"
         # ============= APPLICATION LAUNCHERS =============
         "$modifier,K, Keybinds Search Tool, exec, qs-keybinds"
+        "$modifier CTRL,C, Cheatsheets Viewer, exec, qs-cheatsheets"
         "$modifier SHIFT,K, Legacy Keybinds Menu, exec, list-keybinds"
         "$modifier SHIFT,D, Discord, exec, discord"
         "$modifier SHIFT,W, Web Search, exec, web-search"
@@ -141,15 +142,16 @@ in {
         "ALT,Tab, Cycle Next Window, cyclenext"
         "ALT,Tab, Bring Active To Top, bringactivetotop"
         # ============= MEDIA & HARDWARE CONTROLS =============
-        ",XF86AudioRaiseVolume, Volume Up, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, Volume Down, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        " ,XF86AudioMute, Mute Toggle, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioPlay, Play Pause, exec, playerctl play-pause"
+
+        ",XF86AudioRaiseVolume, Volume Up, exec, vol-smart up 5% 5% 20%"
+        ",XF86AudioLowerVolume, Volume Down, exec, vol-smart down 5% 5% 20%"
+        ",XF86AudioMute, Mute Toggle, exec, vol-smart mute"        ",XF86AudioPlay, Play Pause, exec, playerctl play-pause"
         ",XF86AudioPause, Play Pause, exec, playerctl play-pause"
         ",XF86AudioNext, Next Track, exec, playerctl next"
         ",XF86AudioPrev, Previous Track, exec, playerctl previous"
-        ",XF86MonBrightnessDown, Brightness Down, exec, brightnessctl set 5%-"
-        ",XF86MonBrightnessUp, Brightness Up, exec, brightnessctl set +5%"
+        ",XF86MonBrightnessDown, Brightness Down, exec, bright-smart down 10 5% card0-HDMI-A-1 0.2"
+        ",XF86MonBrightnessUp, Brightness Up, exec, bright-smart up 10 5% card0-HDMI-A-1 0.2"
+
       ];
 
     bindm = [

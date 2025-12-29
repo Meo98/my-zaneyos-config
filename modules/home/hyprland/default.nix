@@ -13,5 +13,8 @@ in
     ./hyprlock.nix
     ./pyprland.nix
     ./windowrules.nix
+    ./vol-smart.nix
+    ./bright-smart.nix
+    ./affinity-gamescope.nix
   ];
 }

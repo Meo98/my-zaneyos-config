@@ -11,8 +11,23 @@
     graphics.enable = true;
     enableRedistributableFirmware = true;
     keyboard.qmk.enable = true;
-    bluetooth.enable = true;
-    bluetooth.powerOnBoot = true;
+
+    # --- HIER IST DIE ÄNDERUNG ---
+    # Wir machen aus "bluetooth.enable" einen Block "bluetooth = { ... }"
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          # Spoofing als Apple-Gerät (004C), damit LibrePods Features freischaltet
+          DeviceID = "bluetooth:004C:0000:0000";
+          
+          # Zeigt Akku-Prozentwerte in Widgets/Waybar an
+          Experimental = true;
+        };
+      };
+    };
+    # -----------------------------
   };
   local.hardware-clock.enable = false;
 }

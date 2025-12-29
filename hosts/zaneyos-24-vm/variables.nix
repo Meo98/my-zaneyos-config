@@ -15,7 +15,7 @@
   weztermEnable = true;
   ghosttyEnable = true;
   vscodeEnable = true;
-  antigravityEnable = false; # Google port of vscodium
+  antigravityEnable = true; # Google port of vscodium
   # Note: This is evil-helix with VIM keybindings by default
   helixEnable = true;
   #To install: Enable here, zcli rebuild, then run zcli doom install
@@ -68,7 +68,7 @@
 
   # Enable Thunar GUI File Manager
   # Yazi is default File Manager
-  thunarEnable = false;
+  thunarEnable = true;
 
   # Themes, waybar and animation.
   #  Only uncomment your selection
@@ -81,8 +81,8 @@
   #stylixImage = ../../wallpapers/mountainscapedark.jpg;
   #stylixImage = ../../wallpapers/AnimeGirlNightSky.jpg;
   #stylixImage = ../../wallpapers/Anime-Purple-eyes.png;
-  stylixImage = ../../wallpapers/Rainnight.jpg;
-  #stylixImage = ../../wallpapers/zaney-wallpaper.jpg;
+  #stylixImage = ../../wallpapers/Rainnight.jpg;
+  stylixImage = ../../wallpapers/zaney-wallpaper.jpg;
   #stylixImage = ../../wallpapers/nix-wallpapers-strips-logo.jpg;
   #stylixImage = ../../wallpapers/beautifulmountainscape.jpg;
 
@@ -113,13 +113,13 @@
   # Set Animation style
   # Available options are:
   #animChoice = ../../modules/home/hyprland/animations-def.nix;
-  animChoice = ../../modules/home/hyprland/animations-end4.nix;
+  #animChoice = ../../modules/home/hyprland/animations-end4.nix;
   #animChoice = ../../modules/home/hyprland/animations-end4-slide.nix;
   #animChoice = ../../modules/home/hyprland/animations-end-slide.nix;
   #animChoice = ../../modules/home/hyprland/animations-dynamic.nix;
   #animChoice = ../../modules/home/hyprland/animations-moving.nix;
   #animChoice = ../../modules/home/hyprland/animations-hyde-optimized.nix;
-  #animChoice = ../../modules/home/hyprland/animations-mahaveer-me-1.nix;
+  animChoice = ../../modules/home/hyprland/animations-mahaveer-me-1.nix;
   #animChoice = ../../modules/home/hyprland/animations-mahaveer-me-2.nix;
   #animChoice = ../../modules/home/hyprland/animations-ml4w-classic.nix;
   #animChoice = ../../modules/home/hyprland/animations-ml4w-fast.nix;

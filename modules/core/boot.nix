@@ -5,9 +5,14 @@
     kernelPackages = pkgs.linuxPackages_zen;
     kernelModules = [ "v4l2loopback" ];
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+
+    kernelParams = [ "i915.enable_dpcd_backlight=3" ];
+    blacklistedKernelModules = [ "nvidia_wmi_ec_backlight" ];
+
     kernel.sysctl = { "vm.max_map_count" = 2147483642; };
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+
     # Appimage Support
     binfmt.registrations.appimage = {
       wrapInterpreterInShell = false;
@@ -17,6 +22,7 @@
       mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
       magicOrExtension = ''\x7fELF....AI\x02'';
     };
+
     plymouth.enable = true;
   };
 }
