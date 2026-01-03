@@ -8,6 +8,20 @@
 
   programs.kdeconnect.enable = true;
 
+  # --- NEU: GNOME KEYRING FÜR BAMBU STUDIO ---
+  # Damit Passwörter gespeichert werden können
+  services.gnome.gnome-keyring.enable = true;
+  programs.seahorse.enable = true; # GUI um Passwörter anzusehen/zu löschen
+
+  # WICHTIG: Damit der Keyring beim Login entsperrt wird.
+  # Wenn du einen Login-Manager wie SDDM oder Greetd nutzt, musst du
+  # eventuell auch diese aktivieren (einfach das # entfernen):
+  # security.pam.services.sddm.enableGnomeKeyring = true;
+  # security.pam.services.greetd.enableGnomeKeyring = true; 
+  
+  # Standard für Konsolen-Login oder generellen Fall:
+  security.pam.services.login.enableGnomeKeyring = true; 
+  # -------------------------------------------
 
   services.udev.extraRules = ''
     # Keychron Geräte (Vendor ID 3434)
