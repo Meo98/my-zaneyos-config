@@ -8,6 +8,8 @@
     discord                   # Chat- und Voice-Plattform für Communities/Gaming
     vlc                       # Universeller Medienplayer, spielt fast jedes Videoformat ab
     tidal-hifi                # Desktop-Client für den High-Fidelity Musik-Streamingdienst Tidal
+    morgen                    # All-in-one Calendars, Tasks and Scheduler
+    bambu-studio
 
     # --- Webbrowser ---
     vivaldi                   # Feature-reicher Browser mit Fokus auf Tab-Management und Privatsphäre
