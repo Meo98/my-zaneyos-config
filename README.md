@@ -55,13 +55,7 @@ This includes the wallpaper, scripts, applications, config files, and more.
   [English](cheatsheets/hyprland-customization-guide.md) |
   [Español](cheatsheets/hyprland-customization-guide.es.md)
 
-### Please note:
-
-> **This project has a [Wiki](https://zaney.org/wiki/zaneyos-2.3/). Find out how
-> to use ZaneyOS here!** **ddubs has put a lot of effort into the
-> [FAQ](https://zaney.org/wiki/zaneyos-2.3/faq) so it should be accurate.
-> However, please if you notice that something is wrong with it create an issue
-> or reach out to us on Discord.**
+ 
 
 #### 🍖 Requirements
 
@@ -102,12 +96,6 @@ This includes the wallpaper, scripts, applications, config files, and more.
   running ZaneyOS.
 - Feel free to reach out on the Discord for any help with anything.
 
-<div align="center">
-
-Please do yourself a favor and
-[read the wiki](https://zaney.org/wiki/zaneyos-2.3/).
-
-</div>
 
 #### 📦 How To Install Packages?
 
@@ -307,13 +295,7 @@ cp -r hosts/default hosts/<your-desired-hostname>
 git add .
 ```
 
-4. Edit `hosts/<your-desired-hostname>/variables.nix`.
-
-5. Edit `flake.nix` and fill in your username, profile, and hostname.
-
-6. Generate your hardware.nix like so:
-
-```
+4. Edit `hosts/<your-desired-hostname>/variab
 nixos-generate-config --show-hardware-config > hosts/<your-desired-hostname>/hardware.nix
 ```
 
