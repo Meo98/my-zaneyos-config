@@ -7,6 +7,14 @@
 
 # 🚀 **Current Release - ZaneyOS v2.5.9**
 
+#### 📅 **Updated: January 23rd, 2026**
+
+- Added additional fonts
+- Fixed issue with Hypridle and Home Manager
+  - Added `systemdTarget = "hyprland-session.target";`
+  - Thank you `Yang Kexuan` for the fix
+  - Reference issue: [5899](https://github.com/nix-community/home-manager/issues/5899)
+
 #### 📅 **Updated: January 5th, 2026**
 
 - Removed extra newline in `exec-once.nix`
