@@ -40,6 +40,31 @@
     else [];
 in {
   wayland.windowManager.hyprland.settings = {
+
+
+    # --- 1. POPUP-AUSSEHEN (Window Rules) ---
+    windowrulev2 = [
+      "float, title:^(keymap-popup)$"
+      "center, title:^(keymap-popup)$"
+      "size 1000 600, title:^(keymap-popup)$" # Größe für Keyball44 optimiert
+      "pin, title:^(keymap-popup)$"           # Bleibt auf allen Workspaces sichtbar
+      "nofocus, title:^(keymap-popup)$"       # Verhindert Fokus-Verlust beim Tippen
+    ];
+
+    # --- 2. TASTEN-LOGIK ---
+    # 'bind' zeigt das Bild an, wenn du drückst
+    bind = [
+      ", F13, exec, imv -n keymap-popup /home/meo/Pictures/Screenshots/keymap_layer1.png"
+      ", F14, exec, imv -n keymap-popup /home/meo/Pictures/Screenshots/keymap_layer2.png"
+      ", F15, exec, imv -n keymap-popup /home/meo/Pictures/Screenshots/keymap_layer3.png"
+    ];
+
+    # 'bindr' (Release) schließt es, sobald du loslässt
+    bindr = [
+      ", F13, exec, pkill -f keymap-popup"
+      ", F14, exec, pkill -f keymap-popup"
+      ", F15, exec, pkill -f keymap-popup"
+    ];
     bindd =
       noctaliaBind
       ++ rofiBind

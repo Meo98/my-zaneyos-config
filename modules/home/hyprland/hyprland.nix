@@ -9,8 +9,8 @@ let
   vars = import ../../../hosts/${host}/variables.nix;
   dp1X = 1600;
   # ... (deine anderen Variablen bleiben gleich)
-  hyprKbLayout = "de"; # Oder was auch immer deine Variable oben ergibt
-  hyprKbVariant = "";
+  hyprKbLayout = "ch"; # Oder was auch immer deine Variable oben ergibt
+  hyprKbVariant = "de";
 in
 {
   # ... (home.packages etc. bleiben gleich) ...
@@ -31,6 +31,7 @@ in
         "systemctl --user start gnome-keyring-daemon"
         # "waybar"  <-- Falls du Waybar nutzt, hier einkommentieren
         # "swww init"
+        "/home/meo/keyball-layer-popup/start.sh"  # Keyball44 Layer Pop-up Tool
       ];
 
       # --- 3. MONITORE ---
