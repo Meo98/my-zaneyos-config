@@ -4,7 +4,7 @@
 
 ## ZaneyOS 🟰 Best ❄️ NixOS Configs
 
-\*\* Updated: November 28th,2025
+\*\* Updated: January 16th, 2026
 
 ZaneyOS is a simple way of reproducing my configuration on any NixOS system.
 This includes the wallpaper, scripts, applications, config files, and more.
@@ -55,14 +55,6 @@ This includes the wallpaper, scripts, applications, config files, and more.
   [English](cheatsheets/hyprland-customization-guide.md) |
   [Español](cheatsheets/hyprland-customization-guide.es.md)
 
-### Please note:
-
-> **This project has a [Wiki](https://zaney.org/wiki/zaneyos-2.3/). Find out how
-> to use ZaneyOS here!** **ddubs has put a lot of effort into the
-> [FAQ](https://zaney.org/wiki/zaneyos-2.3/faq) so it should be accurate.
-> However, please if you notice that something is wrong with it create an issue
-> or reach out to us on Discord.**
-
 #### 🍖 Requirements
 
 - You must be running on NixOS, version 24.05+.
@@ -84,7 +76,7 @@ This includes the wallpaper, scripts, applications, config files, and more.
 #### 🏇 Optimized Workflow & Simple Yet Elegant Neovim
 
 - Using Hyprland for increased elegance, functionality, and efficiency.
-- No massive NeoVIM project here. This is my simple, easy to understand, yet
+- No massive NeoVIM project here, using `nixvim` for an
   incredible NeoVIM setup. With language support already added in.
 
 #### 🖥️ Multi Host & User Configuration
@@ -102,13 +94,6 @@ This includes the wallpaper, scripts, applications, config files, and more.
   running ZaneyOS.
 - Feel free to reach out on the Discord for any help with anything.
 
-<div align="center">
-
-Please do yourself a favor and
-[read the wiki](https://zaney.org/wiki/zaneyos-2.3/).
-
-</div>
-
 #### 📦 How To Install Packages?
 
 - You can search the [Nix Packages](https://search.nixos.org/packages?) &
@@ -123,10 +108,8 @@ Please do yourself a favor and
 
 - Please feel free to raise an issue on the repo, please label a feature request
   with the title beginning with [feature request], thank you!
-- Contact us on [Discord](https://discord.gg/2cRdBs8) as well, for a potentially
+- Contact us on [Discord](https://discord.gg/XhZmNTnhtp) as well, for a potentially
   faster response.
-
-- Don't forget to checkout the [FAQ](https://zaney.org/wiki/zaneyos-2.3/faq)
 
 # Hyprland Keybindings
 
@@ -262,7 +245,7 @@ Then:
 ![ZaneyOS Install Script Command](img/install-script.jpg)
 
 ```
-sh <(curl -L https://gitlab.com/Zaney/zaneyos/-/raw/stable-2.4/install-zaneyos.sh)
+sh <(curl -L https://gitlab.com/Zaney/zaneyos/-/raw/main/install-zaneyos.sh)
 ```
 
 #### The install process will look something like this:
@@ -293,7 +276,7 @@ nix-shell -p git vim
 2. Clone this repo & enter it:
 
 ```
-cd && git clone https://gitlab.com/zaney/zaneyos.git -b stable-2.4 --depth=1 ~/zaneyos
+cd && git clone https://gitlab.com/zaney/zaneyos.git -b main --depth=1 ~/zaneyos
 cd zaneyos
 
 You can still run the `install.sh` script if you want to.
@@ -308,22 +291,19 @@ cp -r hosts/default hosts/<your-desired-hostname>
 git add .
 ```
 
-4. Edit `hosts/<your-desired-hostname>/variables.nix`.
+4. Edit `hosts/<your-desired-hostname>/variab
+   nixos-generate-config --show-hardware-config > hosts/<your-desired-hostname>/hardware.nix
 
-5. Edit `flake.nix` and fill in your username, profile, and hostname.
-
-6. Generate your hardware.nix like so:
-
-```
-nixos-generate-config --show-hardware-config > hosts/<your-desired-hostname>/hardware.nix
 ```
 
 7. Run this to enable flakes and install the flake replacing hostname with
    profile. I.e. `intel`, `nvidia`, `nvidia-laptop`, `amd-hybrid`, or `vm`
 
 ```
+
 NIX_CONFIG="experimental-features = nix-command flakes"
 sudo nixos-rebuild switch --flake .#profile
+
 ```
 
 Now when you want to rebuild the configuration you have access to an alias
@@ -331,63 +311,6 @@ called `fr` that will rebuild the flake and you do not have to be in the
 `zaneyos` folder for it to work.
 
 </details>
-
-## Upgrading from ZaneyOS 2.3 to 2.4 -- At this time do NOT user the upgrade script
-
-> **🚀 IMPORTANT:** If you already have ZaneyOS 2.3 installed, use the automated
-> upgrade system instead of reinstalling!
-
-### ✅ Automated Upgrade Process:
-
-ZaneyOS includes a comprehensive upgrade system that safely migrates your
-configuration:
-
-```bash
-cd ~/zaneyos
-./upgrade-2.3-to-2.4.sh
-```
-
-### 🔍 What the Upgrade System Does:
-
-1. **Pre-Upgrade Analysis** - Comprehensive scan of your customizations
-2. **Complete Backup** - Full backup of your current configuration
-3. **Automatic Migration** - Preserves all your settings and customizations
-4. **Safe Upgrade** - Uses `boot` option to prevent display manager conflicts
-5. **Easy Revert** - One-command rollback if needed
-
-### 📋 What Gets Automatically Migrated:
-
-- ✅ All host configurations and variables
-- ✅ Hardware configurations
-- ✅ Custom packages (both global and per-host)
-- ✅ Themes, wallpapers, and monitor settings
-- ✅ Git configuration and personal settings
-- ✅ Terminal preferences with automatic enabling
-
-### ⚠️ What Requires Manual Attention:
-
-- Custom flake.nix inputs
-- Personal shell configuration files (zshrc-personal.nix, etc.)
-- Custom module modifications
-
-### 📚 Complete Documentation:
-
-For detailed upgrade instructions, troubleshooting, and safety information:
-
-- **Read**: `UPGRADE-2.3-to-2.4.md` in your zaneyos directory
-- **Analysis Report**: Saved automatically as
-  `~/zaneyos-upgrade-analysis-TIMESTAMP.txt`
-
-### 🔄 Easy Revert:
-
-If anything goes wrong, easily revert to 2.3:
-
-```bash
-cd ~/zaneyos
-./upgrade-2.3-to-2.4.sh --revert
-```
-
----
 
 ### Special Recognitions:
 
@@ -398,3 +321,4 @@ Thank you for all your assistance
 - Jerry Starke https://github.com/JerrySM64
 
 ## Hope you enjoy!
+```

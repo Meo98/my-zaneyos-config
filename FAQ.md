@@ -1,8 +1,8 @@
 [English](FAQ.md) | [Español](FAQ.es.md)
 
-# 💬 ZaneyOS FAQ for v2.5.5
+# 💬 ZaneyOS FAQ
 
-- **Date:** 3-Decemnber-2025
+- **Date:** 14-Decemnber-2025
 
 **⌨ Where can I see the Hyprland keybindings?**
 
@@ -229,6 +229,32 @@ Below are the keybindings for Hyprland, formatted for easy reference.
 <div style="margin-left: 20px;">
 
 <details>
+<summary>**How do I set default apps (PDF, browser) per host?**</summary>
+
+- Edit `~/zaneyos/hosts/<HOSTNAME>/variables.nix` and uncomment `mimeDefaultApps`.
+- Home Manager will consume these via `modules/home/xdg.nix` to write your `~/.config/mimeapps.list`.
+- Use real `.desktop` IDs from `/usr/share/applications` or `~/.local/share/applications`.
+
+```nix
+# hosts/<HOSTNAME>/variables.nix
+# Host-level default applications (picked up by Home Manager xdg.mimeApps)
+# mimeDefaultApps = {
+#   # PDFs
+#   "application/pdf" = ["okular.desktop"];
+#   "application/x-pdf" = ["okular.desktop"];
+#   # Web browser
+#   "x-scheme-handler/http"  = ["google-chrome.desktop"];  # or brave-browser.desktop, firefox.desktop
+#   "x-scheme-handler/https" = ["google-chrome.desktop"];
+#   "text/html"              = ["google-chrome.desktop"];
+#   # Files
+#   "inode/directory" = ["thunar.desktop"];      # file manager
+#   "text/plain"      = ["nvim.desktop"];        # or code.desktop
+# };
+```
+
+</details>
+
+<details>
 <summary>**How to I add flatpaks? ?**</summary>
 
 - Edit `~/zaneyos/modules/core/flatpak.nix`
@@ -375,9 +401,9 @@ Edit the `extraMonitorSettings` line. **Examples:**
 - Single Monitor: `extraMonitorSettings = "monitor=eDP-1,1920x1080@60,auto,1";`
 - Multiple Monitors:
   `extraMonitorSettings = "
-          monitor=eDP-1,1920x1080@60,auto,auto
-          monitor=HDMI-A-1,2560x1440@75,auto,auto
-          ";`
+  monitor=eDP-1,1920x1080@60,auto,auto
+  monitor=HDMI-A-1,2560x1440@75,auto,auto
+  ";`
 
 - For more complex, multi-monitor configurations, you may wish to use the GUI
   application, `nwg-displays` This will show your currently connected monitors
@@ -1570,9 +1596,9 @@ Edit the `extraMonitorSettings` line. **Examples:**
 - Single Monitor: `extraMonitorSettings = "monitor=eDP-1,1920x1080@60,auto,1";`
 - Multiple Monitors:
   `extraMonitorSettings = "
-          monitor=eDP-1,1920x1080@60,auto,auto
-          monitor=HDMI-A-1,2560x1440@75,auto,auto
-          ";`
+  monitor=eDP-1,1920x1080@60,auto,auto
+  monitor=HDMI-A-1,2560x1440@75,auto,auto
+  ";`
 
 - For more complex, multi-monitor configurations, you may wish to use the GUI
   application, `nwg-displays` This will show your currently connected monitors

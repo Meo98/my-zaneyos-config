@@ -12,6 +12,7 @@
       with pkgs; [
         matugen # color palette generator needed for noctalia-shell
         app2unit # launcher for noctalia-shell
+        gpu-screen-recorder # needed for nnoctalia-shell
       ]
     else [];
 in {
@@ -42,6 +43,7 @@ in {
   environment.systemPackages = with pkgs;
     noctaliaPkgs
     ++ [
+      alejandra # nix formatter
       amfora # Fancy Terminal Browser For Gemini Protocol
       appimage-run # Needed For AppImage Support
       brave # Brave Browser
@@ -57,8 +59,6 @@ in {
       eza # Beautiful ls Replacement
       ffmpeg # Terminal Video / Audio Editing
       file-roller # Archive Manager
-      gedit # Simple Graphical Text Editor
-      gemini-cli # CLI AI client ONLY (optional)
       gimp # Great Photo Editor
       gpu-screen-recorder # needed for nnoctalia-shell
       power-profiles-daemon # needed for noctalia-shell power cycle
@@ -77,6 +77,9 @@ in {
       ncdu # Disk Usage Analyzer With Ncurses Interface
       nixfmt-rfc-style # Nix Formatter
       nwg-displays # configure monitor configs via GUI
+      nwg-drawer # Application launcher for wayland
+      nwg-dock-hyprland # Dock for hyprland
+      nwg-menu # App menu for waybar
       onefetch # provides zsaneyos build info on current system
       pandoc # format MD to HTML for cheatsheet parser
       pavucontrol # For Editing Audio Levels & Devices
@@ -93,9 +96,9 @@ in {
       upower # noctalia shell battery
       uwsm # Universal Wayland Session Manager (optional must be enabled)
       v4l-utils # Used For Things Like OBS Virtual Camera
-      warp-terminal # Terminal with AI support build in
       waypaper # Change wallpaper
       wget # Tool For Fetching Files With Links
       ytmdl # Tool For Downloading Audio From YouTube
+      python3 # Python 3 programming language
     ];
 }

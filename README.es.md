@@ -4,7 +4,7 @@
 
 ## ZaneyOS 🟰 Mejores Configs ❄️ NixOS
 
-** Actualizado: 3 de junio de 2025
+\*\* Actualizado: 16 de enero de 2026
 
 ZaneyOS es una forma sencilla de reproducir mi configuración en cualquier sistema NixOS.
 Incluye el fondo de pantalla, scripts, aplicaciones, archivos de configuración y más.
@@ -47,13 +47,6 @@ Incluye el fondo de pantalla, scripts, aplicaciones, archivos de configuración 
 - Guía para Principiantes de Nix: [English](cheatsheets/nix-beginner-guide.md) | [Español](cheatsheets/nix-beginner-guide.es.md)
 - Guía de Personalización de Hyprland: [English](cheatsheets/hyprland-customization-guide.md) | [Español](cheatsheets/hyprland-customization-guide.es.md)
 
-### Ten en cuenta:
-
-> **Este proyecto tiene un [Wiki](https://zaney.org/wiki/zaneyos-2.3/). ¡Aprende a usar ZaneyOS aquí!**
-> **ddubs ha puesto mucho esfuerzo en el
-> [FAQ](https://zaney.org/wiki/zaneyos-2.3/faq), así que debería ser preciso.
-> Sin embargo, si notas que algo está mal, crea un issue o contáctanos en Discord.**
-
 #### 🍖 Requisitos
 
 - Debes estar ejecutando NixOS, versión 23.11+.
@@ -89,13 +82,6 @@ Incluye el fondo de pantalla, scripts, aplicaciones, archivos de configuración 
 - Muchas personas pacientes y con ganas de ayudar te apoyan usando ZaneyOS.
 - No dudes en pasar por el Discord para pedir ayuda.
 
-<div align="center">
-
-Hazte un favor y
-[lee el wiki](https://zaney.org/wiki/zaneyos-2.3/).
-
-</div>
-
 #### 📦 ¿Cómo instalo paquetes?
 
 - Puedes buscar en [Nix Packages](https://search.nixos.org/packages?) y
@@ -109,9 +95,7 @@ Hazte un favor y
 
 - Siéntete libre de abrir un issue en el repo. Por favor etiqueta las solicitudes
   de funcionalidades comenzando el título con [feature request], ¡gracias!
-- Contáctanos también en [Discord](https://discord.gg/2cRdBs8) para una respuesta potencialmente más rápida.
-
-- No olvides revisar el [FAQ](https://zaney.org/wiki/zaneyos-2.3/faq)
+- Contáctanos también en [Discord](https://discord.gg/XhZmNTnhtp) para una respuesta potencialmente más rápida.
 
 # Atajos de Hyprland
 
@@ -180,7 +164,7 @@ A continuación los atajos de Hyprland, en formato de referencia rápida. La col
 
 ## 🎨 Atajos de Noctalia Shell
 
-*Disponibles cuando `barChoice = "noctalia"` en `variables.nix`*
+_Disponibles cuando `barChoice = "noctalia"` en `variables.nix`_
 
 - `$modifier + D` → Alternar iniciador
 - `$modifier + Shift + Return` → Alternar iniciador
@@ -196,7 +180,7 @@ A continuación los atajos de Hyprland, en formato de referencia rápida. La col
 
 ### Iniciador Rofi (Modo Waybar)
 
-*Disponible cuando `barChoice = "waybar"` en `variables.nix`*
+_Disponible cuando `barChoice = "waybar"` en `variables.nix`_
 
 - `$modifier + D` → Lanzar Rofi
 - `$modifier + Shift + Return` → Lanzar Rofi
@@ -240,7 +224,7 @@ Luego:
 ![Comando del script de instalación de ZaneyOS](img/install-script.jpg)
 
 ```
-sh <(curl -L https://gitlab.com/Zaney/zaneyos/-/raw/stable-2.4/install-zaneyos.sh)
+sh <(curl -L https://gitlab.com/Zaney/zaneyos/-/raw/main/install-zaneyos.sh)
 ```
 
 #### El proceso de instalación se verá así:
@@ -271,7 +255,7 @@ nix-shell -p git vim
 2. Clona este repo y entra:
 
 ```
-cd && git clone https://gitlab.com/zaney/zaneyos.git -b stable-2.4 --depth=1 ~/zaneyos 
+cd && git clone https://gitlab.com/zaney/zaneyos.git -b main --depth=1 ~/zaneyos
 cd zaneyos
 
 También puedes ejecutar el script `install.sh` si quieres.
@@ -299,67 +283,13 @@ nixos-generate-config --show-hardware-config > hosts/<nombre-del-host>/hardware.
 7. Ejecuta esto para habilitar flakes e instalar, reemplazando hostname por el perfil (p. ej. `intel`, `nvidia`, `nvidia-laptop`, `amd-hybrid` o `vm`):
 
 ```
-NIX_CONFIG="experimental-features = nix-command flakes" 
+NIX_CONFIG="experimental-features = nix-command flakes"
 sudo nixos-rebuild switch --flake .#profile
 ```
 
 Ahora, cuando quieras reconstruir, tienes el alias `fr` que reconstruye el flake y no necesitas estar en la carpeta `zaneyos` para que funcione.
 
 </details>
-
-## Actualizar de ZaneyOS 2.3 a 2.4
-
-> **🚀 IMPORTANTE:** Si ya tienes ZaneyOS 2.3, usa el sistema de actualización automatizado en lugar de reinstalar.
-
-### ✅ Proceso de actualización automatizado:
-
-ZaneyOS incluye un sistema de actualización completo que migra tu configuración de forma segura:
-
-```bash
-cd ~/zaneyos
-./upgrade-2.3-to-2.4.sh
-```
-
-### 🔍 ¿Qué hace el sistema de actualización?
-
-1. **Análisis previo**: Escaneo integral de tus personalizaciones
-2. **Respaldo completo**: Copia total de tu configuración actual
-3. **Migración automática**: Conserva todos tus ajustes y personalizaciones
-4. **Actualización segura**: Usa la opción `boot` para evitar conflictos del gestor de acceso
-5. **Reversión fácil**: Un solo comando si algo sale mal
-
-### 📋 ¿Qué se migra automáticamente?
-
-- ✅ Todas las configuraciones y variables de hosts
-- ✅ Configuraciones de hardware  
-- ✅ Paquetes personalizados (globales y por host)
-- ✅ Temas, fondos y ajustes de monitores
-- ✅ Configuración de Git y preferencias personales
-- ✅ Preferencias de terminal con habilitación automática
-
-### ⚠️ Qué requiere atención manual
-
-- Entradas personalizadas en flake.nix
-- Archivos de configuración personal del shell (zshrc-personal.nix, etc.)
-- Modificaciones de módulos personalizados
-
-### 📚 Documentación completa
-
-Para instrucciones detalladas, solución de problemas y seguridad:
-
-- **Lee**: `UPGRADE-2.3-to-2.4.md` en tu directorio zaneyos
-- **Informe de análisis**: Guardado automáticamente como `~/zaneyos-upgrade-analysis-TIMESTAMP.txt`
-
-### 🔄 Reversión sencilla
-
-Si algo falla, vuelve a 2.3 fácilmente:
-
-```bash
-cd ~/zaneyos
-./upgrade-2.3-to-2.4.sh --revert
-```
-
----
 
 ### Reconocimientos especiales:
 

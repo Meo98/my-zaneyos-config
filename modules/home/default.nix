@@ -25,6 +25,7 @@ in {
       ./bash.nix
       ./bashrc-personal.nix
       ./overview.nix
+      ./python.nix
       ./cli/bat.nix
       ./cli/btop.nix
       ./cli/bottom.nix

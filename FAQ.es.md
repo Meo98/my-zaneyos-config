@@ -1,8 +1,8 @@
 [English](FAQ.md) | [Español](FAQ.es.md)
 
-# 💬 Preguntas frecuentes de ZaneyOS para v2.5.5
+# 💬 Preguntas frecuentes de ZaneyOS
 
-- **Fecha:** 3 de deciembre de 2025
+- **Fecha:** 14 de deciembre de 2025
 
 **⌨ ¿Dónde puedo ver los atajos de teclado de Hyprland?**
 
@@ -137,6 +137,32 @@ zcli doom status                  # Verifica estado de instalación
 ```
 
 </div>
+</details>
+
+<details>
+<summary>**¿Cómo configuro aplicaciones predeterminadas (PDF, navegador) por host?**</summary>
+
+- Edita `~/zaneyos/hosts/<HOSTNAME>/variables.nix` y descomenta `mimeDefaultApps`.
+- Home Manager usará esto vía `modules/home/xdg.nix` para escribir tu `~/.config/mimeapps.list`.
+- Usa IDs `.desktop` reales de `/usr/share/applications` o `~/.local/share/applications`.
+
+```nix
+# hosts/<HOSTNAME>/variables.nix
+# Aplicaciones predeterminadas a nivel de host (consumidas por xdg.mimeApps)
+# mimeDefaultApps = {
+#   # PDFs
+#   "application/pdf" = ["okular.desktop"];
+#   "application/x-pdf" = ["okular.desktop"];
+#   # Navegador web
+#   "x-scheme-handler/http"  = ["google-chrome.desktop"];  # o brave-browser.desktop, firefox.desktop
+#   "x-scheme-handler/https" = ["google-chrome.desktop"];
+#   "text/html"              = ["google-chrome.desktop"];
+#   # Archivos
+#   "inode/directory" = ["thunar.desktop"];      # gestor de archivos
+#   "text/plain"      = ["nvim.desktop"];        # o code.desktop
+# };
+```
+
 </details>
 
 ## Atajos Principales de Hyprland
@@ -387,9 +413,9 @@ Edita la línea `extraMonitorSettings`. **Ejemplos:**
 - Monitor Único: `extraMonitorSettings = "monitor=eDP-1,1920x1080@60,auto,1";`
 - Monitores Múltiples:
   `extraMonitorSettings = "
-          monitor=eDP-1,1920x1080@60,auto,auto
-          monitor=HDMI-A-1,2560x1440@75,auto,auto
-          ";`
+  monitor=eDP-1,1920x1080@60,auto,auto
+  monitor=HDMI-A-1,2560x1440@75,auto,auto
+  ";`
 
 - Para configuraciones multi-monitor más complejas, puedes usar la aplicación
   GUI, `nwg-displays` Esta mostrará tus monitores conectados actualmente

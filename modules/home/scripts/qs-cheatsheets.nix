@@ -1,4 +1,7 @@
-{pkgs}:
+{
+  config,
+  pkgs,
+}:
 pkgs.writeShellScriptBin "qs-cheatsheets" ''
     #!/usr/bin/env bash
     set -euo pipefail
@@ -263,9 +266,9 @@ pkgs.writeShellScriptBin "qs-cheatsheets" ''
       // Handle root directory files
       var filePath;
       if (selectedCategory === "root") {
-        filePath = "/home/dwilliams/zaneyos/cheatsheets/" + filename;
+        filePath = "${config.home.homeDirectory}/zaneyos/cheatsheets/" + filename;
       } else {
-        filePath = "/home/dwilliams/zaneyos/cheatsheets/" + selectedCategory + "/" + filename;
+        filePath = "${config.home.homeDirectory}/zaneyos/cheatsheets/" + selectedCategory + "/" + filename;
       }
 
       const xhr = new XMLHttpRequest();

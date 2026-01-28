@@ -124,14 +124,38 @@
       markdown-preview.enable = true;
 
       # Completion and snippets
-      cmp = {
+      blink-cmp = {
         enable = true;
+        settings = {
+          keymap = {
+            preset = "default";
+            "<CR>" = ["accept" "fallback"];
+            "<Tab>" = ["select_next" "fallback"];
+            "<S-Tab>" = ["select_prev" "fallback"];
+          };
+          appearance = {
+            nerd_font_variant = "mono";
+          };
+          completion = {
+            documentation = {
+              auto_show = true;
+              auto_show_delay_ms = 500;
+            };
+          };
+          sources = {
+            default = ["lsp" "path" "snippets" "buffer"];
+          };
+          snippets = {
+            preset = "luasnip";
+          };
+          fuzzy = {
+            implementation = "prefer_rust_with_warning";
+          };
+          signature = {
+            enabled = true;
+          };
+        };
       };
-      # Completion sources for LSP, buffer, path, and snippets
-      cmp-nvim-lsp.enable = true;
-      cmp-buffer.enable = true;
-      cmp-path.enable = true;
-      cmp_luasnip.enable = true;
 
       luasnip.enable = true;
       friendly-snippets.enable = true;
@@ -169,7 +193,7 @@
         enable = true;
         settings = {
           formatters_by_ft = {
-            nix = ["nixpkgs_fmt"];
+            nix = ["alejandra"];
             lua = ["stylua"];
             javascript = ["prettierd"];
             typescript = ["prettierd"];
@@ -308,7 +332,8 @@
       pyright
       lua-language-server
       zls
-      marksman
+      #marksman
+      multimarkdown
       clang-tools
       prettierd
       stylua
@@ -361,44 +386,6 @@
         vim.notify = notify
       end
 
-      -- nvim-cmp setup: sources + mappings + snippet expansion
-      do
-        local ok_cmp, cmp = pcall(require, "cmp")
-        if ok_cmp then
-          local ok_snip, luasnip = pcall(require, "luasnip")
-          if ok_snip then
-            -- Load friendly-snippets lazily if available
-            pcall(function()
-              require("luasnip.loaders.from_vscode").lazy_load()
-            end)
-          end
-          cmp.setup({
-            snippet = {
-              expand = function(args)
-                if ok_snip then luasnip.lsp_expand(args.body) end
-              end,
-            },
-            mapping = cmp.mapping.preset.insert({
-              ["<C-Space>"] = cmp.mapping.complete(),
-              ["<CR>"] = cmp.mapping.confirm({ select = true }),
-              ["<Tab>"] = cmp.mapping.select_next_item(),
-              ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-            }),
-            sources = cmp.config.sources({
-              { name = "nvim_lsp" },
-              { name = "luasnip" },
-            }, {
-              { name = "path" },
-              { name = "buffer" },
-            }),
-          })
-          -- nvim-cmp integration with nvim-autopairs (optional)
-          local ok_ap, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
-          if ok_ap then
-            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-          end
-        end
-      end
 
       -- Startup dashboard (alpha-nvim)
       do
@@ -421,17 +408,18 @@
             return #lines > 0 and lines or nil
           end
 
-          header_lines = gen_banner('toilet -f ansi-shadow NIXOS 2>/dev/null')
-            or gen_banner('figlet -f "ANSI Shadow" NIXOS 2>/dev/null')
-            or gen_banner('figlet NIXOS 2>/dev/null')
+          header_lines = gen_banner('toilet -f ansi-shadow NIXVIM 2>/dev/null')
+            or gen_banner('figlet -f "ANSI Shadow" NIXVIM 2>/dev/null')
+            or gen_banner('figlet NIXVIM 2>/dev/null')
 
           if not header_lines then
             header_lines = {
-              " _   _ ___  __  __  ___   ___   ____  ",
-              "| \\ | |_ _| \\ \\/ / / _ \\ / _ \\\ |  _ \\ ",
-              "|  \\| || |   \\  / | | | | | | || | | |",
-              "| |\\  || |   /  \\ | |_| | |_| || |_| |",
-              "|_| \\_|___| /_/\\_\\ \\___/ \\___/ |____/ ",
+              "███╗   ██╗██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗",
+              "████╗  ██║██║╚██╗██╔╝██║   ██║██║████╗ ████║",
+              "██╔██╗ ██║██║ ╚███╔╝ ██║   ██║██║██╔████╔██║",
+              "██║╚██╗██║██║ ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║",
+              "██║ ╚████║██║██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║",
+              "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝",
             }
           end
           dashboard.section.header.val = header_lines

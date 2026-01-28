@@ -21,6 +21,8 @@
   #To install: Enable here, zcli rebuild, then run zcli doom install
   doomEmacsEnable = false;
 
+  # Python development tools are included by default
+
   # Hyprland Settings
   # Examples:
   # extraMonitorSettings = "monitor = Virtual-1,1920x1080@60,auto,1";
@@ -44,6 +46,21 @@
   # You need to install it by adding it to the `packages.nix`
   # or as a flatpak
   browser = "brave";
+
+  # Host-level default applications (picked up by Home Manager xdg.mimeApps)
+  # Uncomment and adjust the .desktop IDs to set per-host defaults.
+  # mimeDefaultApps = {
+  #   # PDFs
+  #   "application/pdf" = ["okular.desktop"];
+  #   "application/x-pdf" = ["okular.desktop"];
+  #   # Web browser
+  #   "x-scheme-handler/http"  = ["google-chrome.desktop"];  # or brave-browser.desktop, firefox.desktop
+  #   "x-scheme-handler/https" = ["google-chrome.desktop"];
+  #   "text/html"              = ["google-chrome.desktop"];
+  #   # Files
+  #   "inode/directory" = ["thunar.desktop"];      # file manager
+  #   "text/plain"      = ["nvim.desktop"];        # or code.desktop
+  # };
 
   # Available Options:
   # Kitty, ghostty, wezterm, aalacrity

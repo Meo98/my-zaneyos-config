@@ -154,8 +154,10 @@ if lspci | grep -qi 'vga\|3d'; then
 
   if $has_vm; then
     DETECTED_PROFILE="vm"
+  elif $has_nvidia && $has_amd; then
+    DETECTED_PROFILE="amd-nvidia-hybrid"
   elif $has_nvidia && $has_intel; then
-    DETECTED_PROFILE="hybrid"
+    DETECTED_PROFILE="nvidia-laptop"
   elif $has_nvidia; then
     DETECTED_PROFILE="nvidia"
   elif $has_amd; then
@@ -183,9 +185,10 @@ if [ -z "$profile" ]; then
   read -rp "Enter Your Hardware Profile (GPU)
 Options:
 [ amd ]
+amd-nvidia-hybrid
+intel
 nvidia
 nvidia-laptop
-intel
 vm
 Please type out your choice: " profile
   if [ -z "$profile" ]; then
@@ -234,7 +237,7 @@ else
 fi
 
 print_header "Cloning ZaneyOS Repository"
-git clone https://gitlab.com/zaney/zaneyos.git -b noctalia-upd --depth=1 ~/zaneyos
+git clone https://gitlab.com/zaney/zaneyos.git -b main --depth=1 ~/zaneyos
 cd ~/zaneyos || exit 1
 
 print_header "Git Configuration"
@@ -291,9 +294,10 @@ print_header "Keyboard Variant Configuration"
 # Suggest a variant when user typed a variant-like layout
 variant_suggestion=""
 case "$keyboardLayout" in
-  dvorak|colemak|workman|intl|us-intl)
-    variant_suggestion="$keyboardLayout";;
-  *) ;;
+dvorak | colemak | workman | intl | us-intl)
+  variant_suggestion="$keyboardLayout"
+  ;;
+*) ;;
 esac
 read -rp "Enter your keyboard variant (e.g., dvorak) [ $variant_suggestion ]: " keyboardVariant
 keyboardVariant="${keyboardVariant:-$variant_suggestion}"
@@ -305,15 +309,15 @@ keyboardLayout=$(echo "$keyboardLayout" | tr '[:upper:]' '[:lower:]')
 keyboardVariant=$(echo "$keyboardVariant" | tr '[:upper:]' '[:lower:]')
 
 case "$keyboardLayout" in
-  us-intl|intl)
-    keyboardLayout="us"
-    if [ -z "$keyboardVariant" ]; then keyboardVariant="intl"; fi
-    ;;
-  dvorak|colemak|workman)
-    if [ -z "$keyboardVariant" ]; then keyboardVariant="$keyboardLayout"; fi
-    keyboardLayout="us"
-    ;;
-  *) ;;
+us-intl | intl)
+  keyboardLayout="us"
+  if [ -z "$keyboardVariant" ]; then keyboardVariant="intl"; fi
+  ;;
+dvorak | colemak | workman)
+  if [ -z "$keyboardVariant" ]; then keyboardVariant="$keyboardLayout"; fi
+  keyboardLayout="us"
+  ;;
+*) ;;
 esac
 
 # If a layout accidentally ended up in the variant field, fix it
@@ -387,23 +391,23 @@ rm ./flake.nix.bak
 
 # Update timezone in system.nix
 cp ./modules/core/system.nix ./modules/core/system.nix.bak
-awk -v newtz="$timezone" '/^  time\.timeZone = / { sub(/"[^"]*"/, "\"" newtz "\""); } { print }' ./modules/core/system.nix.bak > ./modules/core/system.nix
+awk -v newtz="$timezone" '/^  time\.timeZone = / { sub(/"[^"]*"/, "\"" newtz "\""); } { print }' ./modules/core/system.nix.bak >./modules/core/system.nix
 rm ./modules/core/system.nix.bak
 
 # Update variables in host file (do all keys in one pass to avoid quoting issues)
 cp ./hosts/$hostName/variables.nix ./hosts/$hostName/variables.nix.bak
 awk -v v_user="$gitUsername" \
-    -v v_email="$gitEmail" \
-    -v v_kb="$keyboardLayout" \
-    -v v_kv="$keyboardVariant" \
-    -v v_ckm="$consoleKeyMap" '
+  -v v_email="$gitEmail" \
+  -v v_kb="$keyboardLayout" \
+  -v v_kv="$keyboardVariant" \
+  -v v_ckm="$consoleKeyMap" '
   /^  gitUsername = /     { sub(/"[^"]*"/, "\"" v_user "\"") }
   /^  gitEmail = /        { sub(/"[^"]*"/, "\"" v_email "\"") }
   /^  keyboardLayout = /  { sub(/"[^"]*"/, "\"" v_kb "\"") }
   /^  keyboardVariant = / { sub(/"[^"]*"/, "\"" v_kv "\"") }
   /^  consoleKeyMap = /   { sub(/"[^"]*"/, "\"" v_ckm "\"") }
   { print }
-' ./hosts/$hostName/variables.nix.bak > ./hosts/$hostName/variables.nix
+' ./hosts/$hostName/variables.nix.bak >./hosts/$hostName/variables.nix
 rm ./hosts/$hostName/variables.nix.bak
 
 echo "Configuration files updated successfully!"

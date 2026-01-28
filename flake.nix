@@ -50,6 +50,11 @@
       url = "github:mrshmllow/affinity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    alejandra = {
+      url = "github:kamadorueda/alejandra";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, nix-flatpak, ... }:
@@ -88,6 +93,7 @@
       nvidia        = mkNixosConfig { profile = "nvidia"; };
       nvidia-laptop = mkNixosConfig { profile = "nvidia-laptop"; };
       amd-hybrid    = mkNixosConfig { profile = "amd-hybrid"; };
+      amd-nvidia-hybrid = mkNixosConfig { profile = "amd-nvidia-hybrid"; };
       intel         = mkNixosConfig { profile = "intel"; };
       vm            = mkNixosConfig { profile = "vm"; };
     };
@@ -115,5 +121,7 @@
         echo "Streamlit: $(streamlit --version)"
       '';
     };
+
+    formatter.x86_64-linux = inputs.alejandra.packages.x86_64-linux.default;
   };
 }

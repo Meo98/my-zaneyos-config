@@ -1,26 +1,27 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   gemini-launcher = pkgs.writeShellScriptBin "gemini-launcher" ''
     #!${pkgs.bash}/bin/bash
-    
-    # Pfad zum API Key
+
+    # Define the path to your API key file
     KEY_FILE="${config.home.homeDirectory}/gem.key"
 
-    # API Key laden falls vorhanden
+    # Check if the key file exists and is readable
     if [ -f "$KEY_FILE" ]; then
+      # Source the API key from the file.
       source "$KEY_FILE"
+      # Launch Gemini directly; it will pick up the exported key.
+      exec ${pkgs.kitty}/bin/kitty -e ${pkgs.gemini-cli}/bin/gemini
+    else
+      # If the key file doesn't exist, launch kitty with an informational message, then start gemini.
+      exec ${pkgs.kitty}/bin/kitty -e bash -c "echo 'NOTE: Gemini API key file not found at ~/.gem.key.'; echo 'To use a key, create this file with content: export GEMINI_API_KEY=\"YOUR_KEY\"'; echo; echo 'Starting Gemini CLI, which will fall back to web-based login...'; echo; exec ${pkgs.gemini-cli}/bin/gemini"
     fi
-
-    # Wir nutzen npx, um immer die aktuellste Version von gemini-cli zu starten
-    # Das stellt sicher, dass Version > 0.16.0 (für Gemini 3 Pro) genutzt wird.
-    exec ${pkgs.kitty}/bin/kitty -e ${pkgs.nodejs}/bin/npx -y @google/gemini-cli@latest
   '';
-
-in
-{
+in {
   home.packages = [
-    pkgs.nodejs # npx wird benötigt
     gemini-launcher
   ];
 
@@ -31,6 +32,6 @@ in
     exec = "gemini-launcher";
     terminal = false;
     type = "Application";
-    categories = [ "Development" "Utility" ];
+    categories = ["Development" "Utility"];
   };
 }

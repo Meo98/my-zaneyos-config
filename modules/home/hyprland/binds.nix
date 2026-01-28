@@ -11,16 +11,16 @@
     if barChoice == "noctalia"
     then [
       "$modifier,D, Noctalia Launcher, exec, noctalia-shell ipc call launcher toggle"
-      "$modifier SHIFT,Return, Noctalia Launcher, exec,  noctalia-shell ipc call launcher toggle"
-      "$modifier,M, Noctalia Notifications, exec, noctalia-shell ipc call notifications toggle"
-      "$modifier,V, Noctalia Clipboard, exec, noctalia-shell ipc call launcher clipboard"
+      "$modifier SHIFT,Return, Noctalia Launcher, exec, noctalia-shell ipc call launcher toggle"
+      "$modifier,M, Noctalia Notifications, exec,  noctalia-shell ipc call notifications toggleHistory"
+      "$modifier,V, Noctalia Clipboard, exec,  noctalia-shell ipc call launcher clipboard"
       "$modifier ALT,P, Noctalia Settings, exec, noctalia-shell ipc call settings toggle"
       "$modifier SHIFT,comma, Noctalia Settings, exec, noctalia-shell ipc call settings toggle"
-      "$modifier ALT,L, Noctalia Lock Screen, exec, noctalia-shell ipc call sessionMenu lockAndSuspend"
-      "$modifier SHIFT,Y, Noctalia Wallpaper, exec, noctalia-shell ipc call wallpaper toggle"
-      "$modifier,X, Noctalia Power Menu, exec, dms noctalia-shell ipc call sessionMenu toggle"
-      "$modifier,C, Noctalia Control Center, exec, noctalia-shell ipc call controlCenter toggle"
-      "$modifier CTRL,R, Noctalia Screen Recorder, exec, noctalia-shell ipc call screenRecorder toggle"
+      "$modifier ALT,L, Noctalia Lock Screen, exec,  noctalia-shell ipc call sessionMenu lockAndSuspend"
+      "$modifier SHIFT,W, Noctalia Wallpaper, exec, noctalia-shell ipc call wallpaper toggle"
+      "$modifier,X, Noctalia Power Menu, exec,  noctalia-shell ipc call sessionMenu toggle"
+      "$modifier,C, Noctalia Control Center, exec,  noctalia-shell ipc call controlCenter toggle"
+      "$modifier CTRL,R, Noctalia Screen Recorder, exec,  noctalia-shell ipc call screenRecorder toggle"
     ]
     else [];
   # Rofi launcher bindings (only included when barChoice != "noctalia")
@@ -71,6 +71,7 @@ in {
       ++ rofiClipboardBind
       ++ [
         # ============= WORKSPACE OVERVIEW =============
+        "$modifier CTRL,D, Toggle Dock, exec, dock"
         "$modifier, TAB, QS Overview, exec, qs ipc -c overview call overview toggle"
         # ============= TERMINALS =============
         "$modifier,Return, Terminal, exec, ${terminal}"
@@ -79,8 +80,8 @@ in {
         "$modifier CTRL,C, Cheatsheets Viewer, exec, qs-cheatsheets"
         "$modifier SHIFT,K, Legacy Keybinds Menu, exec, list-keybinds"
         "$modifier SHIFT,D, Discord, exec, discord"
-        "$modifier SHIFT,W, Web Search, exec, web-search"
-        "$modifier ALT,W, Wallpaper Setter, exec, wallsetter"
+        "$modifier ALT,W, Web Search, exec, web-search"
+        "$modifier SHIFT,W, QS Wallpaper Setter, exec, qs-wallpapers-apply"
         "$modifier SHIFT,N, Notification Reset, exec, swaync-client -rs"
         "$modifier,W, Web Browser, exec, ${browser}"
         "$modifier,Y, File Manager, exec, kitty -e yazi"
