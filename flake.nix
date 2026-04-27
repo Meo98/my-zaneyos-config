@@ -96,6 +96,9 @@
       amd-nvidia-hybrid = mkNixosConfig { profile = "amd-nvidia-hybrid"; };
       intel         = mkNixosConfig { profile = "intel"; };
       vm            = mkNixosConfig { profile = "vm"; };
+
+      # Arbeitslaptop: Intel i7-1165G7 + Intel Iris Xe (kein dedizierter GPU)
+      meo-work      = mkNixosConfig { host = "meo-work"; profile = "intel"; };
     };
 
     devShells.${system}.default = pkgs.mkShell {
