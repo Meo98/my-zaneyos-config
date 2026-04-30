@@ -18,12 +18,12 @@
 
   # Hyprland Monitor Settings
   extraMonitorSettings = ''
-    # HP Z24n - oben links
-    monitor = DP-4,1920x1200@60,0x0,1
-    # Dell U2422H - oben rechts
-    monitor = DP-5,1920x1080@60,1920x0,1
-    # LG Laptop - darunter, unter rechtem Monitor (DP-5), zentriert
-    monitor = eDP-1,1920x1080@60,2280x1080,1.6
+    # HP Z24n - oben links (per EDID, stabil bei Hot-Plug)
+    monitor = desc:Hewlett Packard HP Z24n CN47260BBN,1920x1200@60,0x0,1
+    # Dell U2422H - oben rechts (per EDID)
+    monitor = desc:Dell Inc. DELL U2422H 9FGXF83,1920x1080@60,1920x0,1
+    # LG Laptop - darunter, unter rechtem Monitor, zentriert (per EDID)
+    monitor = desc:LG Display 0x06B8,1920x1080@60,2280x1080,1.6
   '';
 
   # Bar/Shell

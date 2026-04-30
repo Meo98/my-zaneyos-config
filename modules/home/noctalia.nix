@@ -15,6 +15,24 @@ in {
   ];
 
   # Monitor Hot-Plug: Layout wiederherstellen wenn Bildschirm angeschlossen wird
+  home.file.".local/bin/hypr-monitor-hotplug" = {
+    executable = true;
+    text = ''
+      #!/bin/sh
+      export PATH=/run/current-system/sw/bin:/etc/profiles/per-user/meo/bin:$PATH
+      SOCK=$(ls /run/user/1000/hypr/ 2>/dev/null | head -1)
+      socat - UNIX-CONNECT:/run/user/1000/hypr/$SOCK/.socket2.sock | \
+        while read -r line; do
+          case "$line" in
+            monitoradded*)
+              sleep 2
+              hyprctl reload
+              ;;
+          esac
+        done
+    '';
+  };
+
   systemd.user.services.hyprland-monitor-hotplug = {
     Unit = {
       Description = "Restore Hyprland monitor layout on hotplug";
@@ -23,15 +41,7 @@ in {
     };
     Service = {
       Type = "simple";
-      Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/meo/bin";
-      ExecStart = "/bin/sh -c '\
-        SOCK=$(ls /run/user/1000/hypr/ 2>/dev/null | head -1); \
-        socat - UNIX-CONNECT:/run/user/1000/hypr/$SOCK/.socket2.sock | \
-        while read -r line; do \
-          case \"$line\" in \
-            monitoradded*) sleep 2 && hyprctl reload ;; \
-          esac; \
-        done'";
+      ExecStart = "%h/.local/bin/hypr-monitor-hotplug";
       Restart = "on-failure";
       RestartSec = "3s";
     };
