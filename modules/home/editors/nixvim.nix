@@ -120,9 +120,6 @@
       # Diagnostics UI
       trouble.enable = true;
 
-      # Markdown preview
-      markdown-preview.enable = true;
-
       # Completion and snippets
       blink-cmp = {
         enable = true;

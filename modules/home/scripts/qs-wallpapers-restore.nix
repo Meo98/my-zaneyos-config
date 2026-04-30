@@ -69,23 +69,23 @@ pkgs.writeShellScriptBin "qs-wallpapers-restore" ''
     ${pkgs.procps}/bin/pkill -x mpvpaper >/dev/null 2>&1 || true
     ${pkgs.procps}/bin/pkill -x hyprpaper >/dev/null 2>&1 || true
 
-    if ! ${pkgs.swww}/bin/swww query >/dev/null 2>&1; then
+    if ! ${pkgs.awww}/bin/swww query >/dev/null 2>&1; then
       log "Starting swww-daemon"
-      ${pkgs.swww}/bin/swww-daemon >/dev/null 2>&1 & disown
+      ${pkgs.awww}/bin/swww-daemon >/dev/null 2>&1 & disown
       for i in $(${pkgs.coreutils}/bin/seq 1 50); do
-        if ${pkgs.swww}/bin/swww query >/dev/null 2>&1; then break; fi
+        if ${pkgs.awww}/bin/swww query >/dev/null 2>&1; then break; fi
         ${pkgs.coreutils}/bin/sleep 0.1
       done
     fi
     # Robust resize: use explicit WALLPAPER_RESIZE if provided; otherwise try fill -> fit -> crop
     if [ -n "''${WALLPAPER_RESIZE:-}" ]; then
       log "swww img --resize ''${WALLPAPER_RESIZE} $PATH_J"
-      ${pkgs.swww}/bin/swww img --resize "''${WALLPAPER_RESIZE}" "$PATH_J"
+      ${pkgs.awww}/bin/swww img --resize "''${WALLPAPER_RESIZE}" "$PATH_J"
     else
       log "Trying swww resize modes: fill -> fit -> crop"
-      ${pkgs.swww}/bin/swww img --resize fill "$PATH_J" || \
-      ${pkgs.swww}/bin/swww img --resize fit  "$PATH_J" || \
-      ${pkgs.swww}/bin/swww img --resize crop "$PATH_J"
+      ${pkgs.awww}/bin/swww img --resize fill "$PATH_J" || \
+      ${pkgs.awww}/bin/swww img --resize fit  "$PATH_J" || \
+      ${pkgs.awww}/bin/swww img --resize crop "$PATH_J"
     fi
   }
 

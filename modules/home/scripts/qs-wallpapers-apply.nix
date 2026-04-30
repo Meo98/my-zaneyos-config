@@ -123,12 +123,12 @@ pkgs.writeShellScriptBin "qs-wallpapers-apply" ''
     swww)
       ${pkgs.procps}/bin/pkill -x mpvpaper >/dev/null 2>&1 || true
       # Start swww-daemon if needed (newer swww has no 'init' subcommand)
-      if ! ${pkgs.swww}/bin/swww query >/dev/null 2>&1; then
+      if ! ${pkgs.awww}/bin/swww query >/dev/null 2>&1; then
         log "Starting swww-daemon"
-        ${pkgs.swww}/bin/swww-daemon >/dev/null 2>&1 & disown
+        ${pkgs.awww}/bin/swww-daemon >/dev/null 2>&1 & disown
         # wait briefly for the daemon to be ready
         for i in $(${pkgs.coreutils}/bin/seq 1 50); do
-          if ${pkgs.swww}/bin/swww query >/dev/null 2>&1; then
+          if ${pkgs.awww}/bin/swww query >/dev/null 2>&1; then
             log "swww-daemon ready"
             break
           fi
@@ -142,13 +142,13 @@ pkgs.writeShellScriptBin "qs-wallpapers-apply" ''
       run_swww_img() {
         if [ -n "''${WALLPAPER_RESIZE:-}" ]; then
           log "swww img --resize ''${WALLPAPER_RESIZE} $sel"
-          ${pkgs.swww}/bin/swww img --resize "''${WALLPAPER_RESIZE}" "$sel"
+          ${pkgs.awww}/bin/swww img --resize "''${WALLPAPER_RESIZE}" "$sel"
           return $?
         fi
         log "Trying swww resize modes: fill -> fit -> crop"
-        ${pkgs.swww}/bin/swww img --resize fill "$sel" || \
-        ${pkgs.swww}/bin/swww img --resize fit  "$sel" || \
-        ${pkgs.swww}/bin/swww img --resize crop "$sel"
+        ${pkgs.awww}/bin/swww img --resize fill "$sel" || \
+        ${pkgs.awww}/bin/swww img --resize fit  "$sel" || \
+        ${pkgs.awww}/bin/swww img --resize crop "$sel"
       }
 
       # Niri: generic apply has proven to work more reliably than per-output here
