@@ -14,6 +14,46 @@ in {
     pkgs.quickshell # Ensure quickshell is available for the service
   ];
 
+  # Monitor Hot-Plug: Layout wiederherstellen wenn Bildschirm angeschlossen wird
+  systemd.user.services.hyprland-monitor-hotplug = {
+    Unit = {
+      Description = "Restore Hyprland monitor layout on hotplug";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/meo/bin";
+      ExecStart = "/bin/sh -c '\
+        SOCK=$(ls /run/user/1000/hypr/ 2>/dev/null | head -1); \
+        socat - UNIX-CONNECT:/run/user/1000/hypr/$SOCK/.socket2.sock | \
+        while read -r line; do \
+          case \"$line\" in \
+            monitoradded*) sleep 2 && hyprctl reload ;; \
+          esac; \
+        done'";
+      Restart = "on-failure";
+      RestartSec = "3s";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+  # Systemd user service — startet noctalia automatisch und nach jedem rebuild neu
+  systemd.user.services.noctalia-shell = {
+    Unit = {
+      Description = "Noctalia Shell Bar";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStartPre = "/bin/sh -c 'pkill -f \"quickshell$\" || true'";
+      ExecStart = "${noctaliaPkg}/bin/noctalia-shell";
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   # Seed the configuration
   home.activation.seedNoctaliaShellCode = lib.hm.dag.entryAfter ["writeBoundary"] ''
     set -eu

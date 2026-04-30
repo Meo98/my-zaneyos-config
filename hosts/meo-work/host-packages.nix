@@ -16,16 +16,8 @@
     pkgs.qmk-udev-rules 
   ];
 
-  # 3. QMK Hardware Support aktivieren
-  hardware.keyboard.qmk.enable = true;
-
   environment.systemPackages = with pkgs; [
-    # Screenshots / Clipboard
-    grim
-    slurp
-    swappy
-    wl-clipboard
-    hyprshot
+    # Screenshots / Clipboard (grim/slurp/swappy/wl-clipboard/hyprshot bereits in hyprland.nix)
     jq
     libnotify
     # --- Multimedia & Kommunikation ---
@@ -42,6 +34,8 @@
     firefox                   # Der klassische, privatsphäre-orientierte Open-Source Browser
 
     # --- Produktivität & Office ---
+    ferdium                   # All-in-one Messaging: WhatsApp, Telegram, Teams, Mail, etc.
+    signal-desktop            # Signal Messenger (kein Web-Wrapper möglich, braucht native App)
     bitwarden-desktop         # Passwort-Manager zur sicheren Verwaltung deiner Zugangsdaten
     onlyoffice-desktopeditors # Office-Suite mit sehr hoher Kompatibilität zu MS Office-Formaten
     insync                    # Synchronisations-Client für Google Drive und OneDrive
@@ -53,6 +47,7 @@
     distrobox                 # Erlaubt es, andere Linux-Distros (wie Ubuntu/Arch) in Containern zu nutzen
     antigravity               # Ein spezieller Port/Fork für VS Codium/VS Code optimiert
     dos2unix                  # Werkzeug zum Umwandeln von Windows-Zeilenumbrüchen in Linux-Format
+    claude-code
 
     # --- Grafik & Gaming ---
     vulkan-tools              # Diagnose-Tools für die Vulkan-Grafik-Schnittstelle (z.B. vulkaninfo)

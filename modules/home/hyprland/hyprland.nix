@@ -6,7 +6,6 @@
   ...
 }: let
   vars = import ../../../hosts/${host}/variables.nix;
-  dp1X = 1600;
   hyprKbLayout = "ch";
   hyprKbVariant = "de";
 in {
@@ -57,10 +56,6 @@ in {
         "/home/meo/keyball-layer-popup/start.sh"
       ];
 
-      monitor = [
-        "eDP-1,2560x1600@240,0x0,1.6"
-        "DP-1,2560x1440@60,${toString dp1X}x0,1"
-      ];
 
       general = {
         layout = "dwindle";
@@ -104,6 +99,7 @@ in {
     };
 
     extraConfig = ''
+      ${vars.extraMonitorSettings}
       monitor=,preferred,auto,auto
       monitor=Virtual-1,1920x1080@60,auto,1
     '';

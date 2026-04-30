@@ -38,7 +38,6 @@
 
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser = {
@@ -71,12 +70,12 @@
       config.allowUnfree = true;
     };
 
-    mkNixosConfig = { host ? defaultHost, profile ? defaultProfile }:
+    mkNixosConfig = { host ? defaultHost, profile ? defaultProfile, nixosTarget ? profile }:
       lib.nixosSystem {
         inherit system;
 
         specialArgs = {
-          inherit inputs username host profile;
+          inherit inputs username host profile nixosTarget;
         };
 
         modules = [
@@ -98,7 +97,7 @@
       vm            = mkNixosConfig { profile = "vm"; };
 
       # Arbeitslaptop: Intel i7-1165G7 + Intel Iris Xe (kein dedizierter GPU)
-      meo-work      = mkNixosConfig { host = "meo-work"; profile = "intel"; };
+      meo-work      = mkNixosConfig { host = "meo-work"; profile = "intel"; nixosTarget = "meo-work"; };
     };
 
     devShells.${system}.default = pkgs.mkShell {

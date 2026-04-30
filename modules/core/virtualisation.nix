@@ -8,7 +8,7 @@
     podman.enable = false;
 
     libvirtd = {
-      enable = true;
+      enable = false;
     };
 
     virtualbox.host = {
@@ -20,6 +20,10 @@
   programs = {
     virt-manager.enable = false;
   };
+
+  # Explizit deaktivieren, damit der Service beim 'nixos-rebuild switch'
+  # nicht hängt und den Bildschirm einfriert (bekannter NixOS-Bug).
+  systemd.services.libvirt-guests.enable = false;
 
   environment.systemPackages = with pkgs; [
     virt-viewer # View Virtual Machines

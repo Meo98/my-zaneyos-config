@@ -20,21 +20,15 @@
   # --- AUDIO FIX (Gegen das Klicken/Knallen) ---
   boot.kernelParams = [ "snd_hda_intel.power_save=0" "snd_hda_intel.power_save_controller=N" ];
 
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-    extraConfig.pipewire."99-disable-suspend" = {
-      "context.properties" = {
-        "node.pause-on-idle" = false;
-      };
-    };
+  services.pipewire.extraConfig.pipewire."99-disable-suspend" = {
+    "context.properties"."node.pause-on-idle" = false;
   };
 
   # --- WEITERE SERVICES ---
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   services.udev.extraRules = ''
     # Keychron Geräte (Vendor ID 3434)
@@ -44,6 +38,56 @@
     # Keychron Link Dongle
     SUBSYSTEM=="usb", ATTRS{idVendor}=="3434", MODE="0666", TAG+="uaccess"
   '';
+
+  # --- MONITOR LAYOUT NACH SUSPEND WIEDERHERSTELLEN ---
+  systemd.services.hyprland-monitor-restore = {
+    description = "Restore Hyprland monitor layout after suspend";
+    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "meo";
+      Environment = "HYPRLAND_INSTANCE_SIGNATURE=%t/hypr";
+      ExecStart = "/bin/sh -c 'sleep 2 && HYPRLAND_INSTANCE_SIGNATURE=$(ls /run/user/1000/hypr/ 2>/dev/null | head -1) hyprctl reload'";
+    };
+  };
+
+  # --- ZRAM SWAP (verhindert OOM-Kills bei Speicherdruck) ---
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 25;
+  };
+
+  # --- THERMALD (Intel Thermal Management) ---
+  services.thermald.enable = true;
+
+  # --- NOATIME auf Root-Partition (reduziert SSD-Schreibzugriffe) ---
+  fileSystems."/".options = [ "noatime" ];
+
+  # --- WLAN RFKILL FIX (ideapad_laptop blockiert WLAN wenn Ethernet verbunden) ---
+  systemd.services.rfkill-unblock-wifi = {
+    description = "Unblock WiFi rfkill on boot";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-pre.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "/run/current-system/sw/bin/rfkill unblock wifi";
+      RemainAfterExit = true;
+    };
+  };
+
+  networking.networkmanager.dispatcherScripts = [{
+    source = builtins.toFile "99-wifi-on-ethernet-down" ''
+      #!/bin/sh
+      INTERFACE="$1"
+      ACTION="$2"
+      if [ "$ACTION" = "down" ] || [ "$ACTION" = "connectivity-change" ]; then
+        /run/current-system/sw/bin/rfkill unblock wifi
+      fi
+    '';
+    type = "basic";
+  }];
 
   # --- BENUTZER & GRUPPEN ---
   users.users."meo".extraGroups = [ "dialout" "input" "uinput" ];

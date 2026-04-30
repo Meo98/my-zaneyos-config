@@ -17,11 +17,13 @@
   doomEmacsEnable = false;
 
   # Hyprland Monitor Settings
-  # Arbeitslaptop: nur internes Display, auto-Auflösung
-  # Nach der Installation kannst du mit `hyprctl monitors` die echten Namen prüfen
-  # und hier z.B. auf "eDP-1,1920x1080@60,auto,1" anpassen.
   extraMonitorSettings = ''
-    monitor = ,preferred,auto,1
+    # HP Z24n - oben links
+    monitor = DP-4,1920x1200@60,0x0,1
+    # Dell U2422H - oben rechts
+    monitor = DP-5,1920x1080@60,1920x0,1
+    # LG Laptop - darunter, unter rechtem Monitor (DP-5), zentriert
+    monitor = eDP-1,1920x1080@60,2280x1080,1.6
   '';
 
   # Bar/Shell
@@ -63,6 +65,21 @@
   waybarChoice = ../../modules/home/waybar/waybar-ddubs.nix;
 
   animChoice = ../../modules/home/hyprland/animations-def.nix;
+
+  # Default Applications (Vivaldi für alles Web-bezogene)
+  mimeDefaultApps = {
+    "x-scheme-handler/http"         = "vivaldi-stable.desktop";
+    "x-scheme-handler/https"        = "vivaldi-stable.desktop";
+    "x-scheme-handler/ftp"          = "vivaldi-stable.desktop";
+    "x-scheme-handler/chrome"       = "vivaldi-stable.desktop";
+    "x-scheme-handler/about"        = "vivaldi-stable.desktop";
+    "x-scheme-handler/unknown"      = "vivaldi-stable.desktop";
+    "text/html"                     = "vivaldi-stable.desktop";
+    "text/xml"                      = "vivaldi-stable.desktop";
+    "text/xhtml+xml"                = "vivaldi-stable.desktop";
+    "application/xhtml+xml"         = "vivaldi-stable.desktop";
+    "application/xml"               = "vivaldi-stable.desktop";
+  };
 
   # hostId (muss eindeutig sein, für ZFS)
   hostId = "1d713ceb";

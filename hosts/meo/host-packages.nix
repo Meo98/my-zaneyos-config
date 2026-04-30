@@ -52,6 +52,7 @@
     glab                      # GitLab CLI - Ermöglicht GitLab-Aktionen (wie Login/Push) im Terminal
     distrobox                 # Erlaubt es, andere Linux-Distros (wie Ubuntu/Arch) in Containern zu nutzen
     antigravity               # Ein spezieller Port/Fork für VS Codium/VS Code optimiert
+    claude-code               # Anthropic Claude CLI – wird von der Claude Code VS Code-Extension benötigt
     dos2unix                  # Werkzeug zum Umwandeln von Windows-Zeilenumbrüchen in Linux-Format
 
     # --- Grafik & Gaming ---
