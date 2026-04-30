@@ -30,7 +30,6 @@ in {
     seahorse.enable = true;
     fuse.userAllowOther = true;
     mtr.enable = true;
-    adb.enable = true;
     hyprlock.enable = true;
     gnupg.agent = {
       enable = true;
@@ -44,6 +43,7 @@ in {
     noctaliaPkgs
     ++ [
       alejandra # nix formatter
+      android-tools # adb, fastboot (systemd 258+ handles uaccess automatically)
       amfora # Fancy Terminal Browser For Gemini Protocol
       appimage-run # Needed For AppImage Support
       brave # Brave Browser
