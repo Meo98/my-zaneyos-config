@@ -1,16 +1,16 @@
 {
-  description = "ZaneyOS Stable (25.11)";
+  description = "ZaneyOS Unstable";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -22,7 +22,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -59,6 +59,7 @@
       url = "github:mahaveergurjar/sddm/noctalia";
       flake = false;
     };
+
   };
 
   outputs = inputs@{ self, nixpkgs, nix-flatpak, ... }:
