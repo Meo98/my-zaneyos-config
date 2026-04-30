@@ -38,6 +38,12 @@
 
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    awww = {
+      url = "git+https://codeberg.org/LGFae/awww";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser = {
