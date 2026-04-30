@@ -4,71 +4,26 @@
   config,
   lib,
   host,
+  inputs,
   ...
 }: let
-  foreground = config.stylix.base16Scheme.base00;
-  textColor = config.stylix.base16Scheme.base05;
-  sddm-astronaut = pkgs.sddm-astronaut.override {
-    embeddedTheme = "pixel_sakura";
-    themeConfig =
-      if lib.hasSuffix "sakura_static.png" config.stylix.image
-      then {
-        FormPosition = "left";
-        Blur = "2.0";
-        HourFormat = "h:mm AP";
-      }
-      else if lib.hasSuffix "studio.png" config.stylix.image
-      then {
-        Background = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/anotherhadi/nixy-wallpapers/refs/heads/main/wallpapers/studio.gif";
-          sha256 = "sha256-qySDskjmFYt+ncslpbz0BfXiWm4hmFf5GPWF2NlTVB8=";
-        };
-        HourFormat = "h:mm AP";
-        HeaderTextColor = "#${textColor}";
-        DateTextColor = "#${textColor}";
-        TimeTextColor = "#${textColor}";
-        LoginFieldTextColor = "#${textColor}";
-        PasswordFieldTextColor = "#${textColor}";
-        UserIconColor = "#${textColor}";
-        PasswordIconColor = "#${textColor}";
-        WarningColor = "#${textColor}";
-        LoginButtonBackgroundColor = "#${foreground}";
-        SystemButtonsIconsColor = "#${foreground}";
-        SessionButtonTextColor = "#${textColor}";
-        VirtualKeyboardButtonTextColor = "#${textColor}";
-        DropdownBackgroundColor = "#${foreground}";
-        HighlightBackgroundColor = "#${textColor}";
-      }
-      else {
-        FormPosition = "left";
-        Blur = "4.0";
-        Background = "${toString config.stylix.image}";
-        HourFormat = "h:mm AP";
-        HeaderTextColor = "#${textColor}";
-        DateTextColor = "#${textColor}";
-        TimeTextColor = "#${textColor}";
-        LoginFieldTextColor = "#${textColor}";
-        PasswordFieldTextColor = "#${textColor}";
-        UserIconColor = "#${textColor}";
-        PasswordIconColor = "#${textColor}";
-        WarningColor = "#${textColor}";
-        LoginButtonBackgroundColor = "#${config.stylix.base16Scheme.base01}";
-        SystemButtonsIconsColor = "#${textColor}";
-        SessionButtonTextColor = "#${textColor}";
-        VirtualKeyboardButtonTextColor = "#${textColor}";
-        DropdownBackgroundColor = "#${config.stylix.base16Scheme.base01}";
-        HighlightBackgroundColor = "#${textColor}";
-        FormBackgroundColor = "#${config.stylix.base16Scheme.base01}";
-      };
+  sddm-noctalia = pkgs.stdenv.mkDerivation {
+    name = "sddm-noctalia-theme";
+    src = inputs.sddm-noctalia;
+    installPhase = ''
+      mkdir -p $out/share/sddm/themes/noctalia
+      cp -r . $out/share/sddm/themes/noctalia/
+      cp ${config.stylix.image} $out/share/sddm/themes/noctalia/Assets/background.png
+    '';
   };
 in {
   services.displayManager = {
     sddm = {
       package = pkgs.kdePackages.sddm;
-      extraPackages = [sddm-astronaut];
+      extraPackages = [sddm-noctalia];
       enable = true;
       wayland.enable = true;
-      theme = "sddm-astronaut-theme";
+      theme = "noctalia";
       settings = let
         vars = import ../../hosts/${host}/variables.nix;
         keyboardLayout = vars.keyboardLayout or "us";
@@ -90,5 +45,5 @@ in {
   in ({XKB_DEFAULT_LAYOUT = keyboardLayout;}
     // lib.optionalAttrs (keyboardVariant != "") {XKB_DEFAULT_VARIANT = keyboardVariant;});
 
-  environment.systemPackages = [sddm-astronaut];
+  environment.systemPackages = [sddm-noctalia];
 }

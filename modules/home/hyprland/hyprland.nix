@@ -85,6 +85,16 @@ in {
       # Gestures für Touchpad (in neueren Hyprland-Versionen anders konfiguriert)
       # gestures werden jetzt über input.touchpad gesteuert
 
+      decoration = {
+        rounding = 10;
+        shadow.enabled = true;
+        blur = {
+          enabled = true;
+          size = 6;
+          passes = 3;
+        };
+      };
+
       misc = {
         layers_hog_keyboard_focus = true;
         initial_workspace_tracking = 0;

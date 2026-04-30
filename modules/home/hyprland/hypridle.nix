@@ -7,12 +7,12 @@
         general = {
           after_sleep_cmd = "hyprctl dispatch dpms on && sleep 1 && hyprctl reload";
           ignore_dbus_inhibit = false;
-          lock_cmd = "hyprlock";
+          lock_cmd = "noctalia-shell ipc call sessionMenu lock";
         };
         listener = [
           {
             timeout = 900;
-            on-timeout = "hyprlock";
+            on-timeout = "noctalia-shell ipc call sessionMenu lock";
           }
           {
             timeout = 1200;

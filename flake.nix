@@ -54,6 +54,11 @@
       url = "github:kamadorueda/alejandra";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sddm-noctalia = {
+      url = "github:mahaveergurjar/sddm/noctalia";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, nix-flatpak, ... }:
