@@ -38,6 +38,9 @@ in {
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w" # Benötigt von einem Paket im Stack; EOL aber intern genutzt
+  ];
 
   environment.systemPackages = with pkgs;
     noctaliaPkgs
