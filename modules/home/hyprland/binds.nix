@@ -42,14 +42,6 @@ in {
   wayland.windowManager.hyprland.settings = {
 
 
-    # --- 1. POPUP-AUSSEHEN (Window Rules) ---
-    windowrulev2 = [
-      "float, title:^(keymap-popup)$"
-      "center, title:^(keymap-popup)$"
-      "size 1000 600, title:^(keymap-popup)$" # Größe für Keyball44 optimiert
-      "pin, title:^(keymap-popup)$"           # Bleibt auf allen Workspaces sichtbar
-      "nofocus, title:^(keymap-popup)$"       # Verhindert Fokus-Verlust beim Tippen
-    ];
 
     # --- 2. TASTEN-LOGIK ---
     # 'bind' zeigt das Bild an, wenn du drückst

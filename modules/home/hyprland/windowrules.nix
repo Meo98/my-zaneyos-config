@@ -1,12 +1,18 @@
 _: {
   wayland.windowManager.hyprland = {
-    settings = {
-      windowrule = [];
-      windowrulev2 = [];
-    };
     extraConfig = ''
       rule = float(true), match:modal:1
       rule = center(true), match:modal:1
+
+      windowrule {
+        name = keymap-popup
+        match:title = ^(keymap-popup)$
+        float = on
+        center = on
+        size = 1000 600
+        pin = on
+        no_focus = on
+      }
 
       windowrule {
         name = Resolve
