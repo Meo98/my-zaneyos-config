@@ -929,6 +929,7 @@
         "noctalia": "noctalia",
         "nvf": "nvf",
         "quickshell": "quickshell",
+        "sddm-noctalia": "sddm-noctalia",
         "stylix": "stylix",
         "zen-browser": "zen-browser"
       }
@@ -964,6 +965,23 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "sddm-noctalia": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772882002,
+        "narHash": "sha256-q/aw4PLSHhS2jKjRl8F1JIBZn1aBV/QBEDgZ+2Oyo2A=",
+        "owner": "mahaveergurjar",
+        "repo": "sddm",
+        "rev": "77055e5a8c85a59db3c009da55ae3670ee082ace",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mahaveergurjar",
+        "ref": "noctalia",
+        "repo": "sddm",
         "type": "github"
       }
     },
