@@ -152,8 +152,8 @@
     "x-scheme-handler/about"        = "vivaldi-stable.desktop";
     "x-scheme-handler/unknown"      = "vivaldi-stable.desktop";
     "text/html"                     = "vivaldi-stable.desktop";
-    "application/pdf"               = "org.gnome.Papers.desktop";
-    "application/x-pdf"             = "org.gnome.Papers.desktop";
+    "application/pdf"               = "com.github.xournalpp.xournalpp.desktop";
+    "application/x-pdf"             = "com.github.xournalpp.xournalpp.desktop";
   };
 
   # Set network hostId if required (needed for zfs)

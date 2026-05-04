@@ -42,7 +42,7 @@
     firefox                   # Der klassische, privatsphäre-orientierte Open-Source Browser
 
     # --- Produktivität & Office ---
-    papers                     # GNOME PDF-Viewer (Evince-Nachfolger)
+    xournalpp                  # PDF-Annotierung und Handschrift-Notizen
     bitwarden-desktop         # Passwort-Manager zur sicheren Verwaltung deiner Zugangsdaten
     onlyoffice-desktopeditors # Office-Suite mit sehr hoher Kompatibilität zu MS Office-Formaten
     insync                    # Synchronisations-Client für Google Drive und OneDrive
