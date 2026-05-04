@@ -42,7 +42,7 @@
     firefox                   # Der klassische, privatsphäre-orientierte Open-Source Browser
 
     # --- Produktivität & Office ---
-    okular                    # PDF-Viewer mit Annotationen, Formularen und Unterschriften-Support
+    kdePackages.okular         # PDF-Viewer mit Annotationen, Formularen und Unterschriften-Support
     bitwarden-desktop         # Passwort-Manager zur sicheren Verwaltung deiner Zugangsdaten
     onlyoffice-desktopeditors # Office-Suite mit sehr hoher Kompatibilität zu MS Office-Formaten
     insync                    # Synchronisations-Client für Google Drive und OneDrive

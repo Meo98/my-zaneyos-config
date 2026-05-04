@@ -3,6 +3,11 @@
   consoleKeyMap = vars.consoleKeyMap or "us";
 in {
   nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
     settings = {
       download-buffer-size = 200000000;
       auto-optimise-store = true;

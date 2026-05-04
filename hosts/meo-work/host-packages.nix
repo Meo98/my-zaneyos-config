@@ -30,12 +30,9 @@
 
     # --- Webbrowser ---
     vivaldi                   # Feature-reicher Browser mit Fokus auf Tab-Management und Privatsphäre
-    google-chrome             # Standard-Browser von Google (oft nötig für DRM/Netflix-Stabilität)
-    firefox                   # Der klassische, privatsphäre-orientierte Open-Source Browser
 
     # --- Produktivität & Office ---
-    okular                    # PDF-Viewer mit Annotationen, Formularen und Unterschriften-Support
-    ferdium                   # All-in-one Messaging: WhatsApp, Telegram, Teams, Mail, etc.
+    kdePackages.okular         # PDF-Viewer mit Annotationen, Formularen und Unterschriften-Support
     signal-desktop            # Signal Messenger (kein Web-Wrapper möglich, braucht native App)
     bitwarden-desktop         # Passwort-Manager zur sicheren Verwaltung deiner Zugangsdaten
     onlyoffice-desktopeditors # Office-Suite mit sehr hoher Kompatibilität zu MS Office-Formaten
