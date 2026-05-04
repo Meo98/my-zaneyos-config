@@ -81,8 +81,8 @@
     "application/xhtml+xml"         = "vivaldi-stable.desktop";
     "application/xml"               = "vivaldi-stable.desktop";
     # PDF
-    "application/pdf"               = "com.github.xournalpp.xournalpp.desktop";
-    "application/x-pdf"             = "com.github.xournalpp.xournalpp.desktop";
+    "application/pdf"               = "onlyoffice-desktopeditors.desktop";
+    "application/x-pdf"             = "onlyoffice-desktopeditors.desktop";
   };
 
   # hostId (muss eindeutig sein, für ZFS)
