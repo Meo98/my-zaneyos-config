@@ -96,7 +96,7 @@
         name = "werkstatt";
         location = "Werkstatt";
         deviceUri = "socket://192.168.125.210:9100";
-        model = "drv:///sample.drv/generic.ppd";
+        model = "foomatic-db-ppds/KONICA_MINOLTA-bizhub_C451-Postscript-KONICA_MINOLTA.ppd.gz";
         ppdOptions = {
           PageSize = "A4";
         };
