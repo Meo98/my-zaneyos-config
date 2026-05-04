@@ -95,7 +95,7 @@
       {
         name = "werkstatt";
         location = "Werkstatt";
-        deviceUri = "ipp://192.168.125.210/ipp/print";
+        deviceUri = "socket://192.168.125.210:9100";
         model = "drv:///sample.drv/generic.ppd";
         ppdOptions = {
           PageSize = "A4";

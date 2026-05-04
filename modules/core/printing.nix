@@ -7,6 +7,8 @@ in {
       drivers = [
         # pkgs.hplipWithPlugin
         pkgs.cups-filters
+        pkgs.foomatic-db-ppds
+        pkgs.foomatic-db-engine
       ];
     };
     avahi = {
