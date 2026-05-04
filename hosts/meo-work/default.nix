@@ -115,7 +115,7 @@
     "x-scheme-handler/https" = "vivaldi-stable.desktop";
     "x-scheme-handler/about" = "vivaldi-stable.desktop";
     "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
-    "application/pdf" = "okularApplication_pdf.desktop";
-    "application/x-pdf" = "okularApplication_pdf.desktop";
+    "application/pdf" = "org.gnome.Papers.desktop";
+    "application/x-pdf" = "org.gnome.Papers.desktop";
   };
 }

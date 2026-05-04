@@ -32,7 +32,7 @@
     vivaldi                   # Feature-reicher Browser mit Fokus auf Tab-Management und Privatsphäre
 
     # --- Produktivität & Office ---
-    kdePackages.okular         # PDF-Viewer mit Annotationen, Formularen und Unterschriften-Support
+    papers                     # GNOME PDF-Viewer (Evince-Nachfolger)
     signal-desktop            # Signal Messenger (kein Web-Wrapper möglich, braucht native App)
     bitwarden-desktop         # Passwort-Manager zur sicheren Verwaltung deiner Zugangsdaten
     onlyoffice-desktopeditors # Office-Suite mit sehr hoher Kompatibilität zu MS Office-Formaten

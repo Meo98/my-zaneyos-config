@@ -81,8 +81,8 @@
     "application/xhtml+xml"         = "vivaldi-stable.desktop";
     "application/xml"               = "vivaldi-stable.desktop";
     # PDF
-    "application/pdf"               = "okularApplication_pdf.desktop";
-    "application/x-pdf"             = "okularApplication_pdf.desktop";
+    "application/pdf"               = "org.gnome.Papers.desktop";
+    "application/x-pdf"             = "org.gnome.Papers.desktop";
   };
 
   # hostId (muss eindeutig sein, für ZFS)
