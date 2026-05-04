@@ -54,7 +54,7 @@
   enableNFS = true;
 
   # Drucken
-  printEnable = false;
+  printEnable = true;
 
   # Dateimanager
   thunarEnable = false;
@@ -68,6 +68,7 @@
 
   # Default Applications (Vivaldi für alles Web-bezogene)
   mimeDefaultApps = {
+    # Browser
     "x-scheme-handler/http"         = "vivaldi-stable.desktop";
     "x-scheme-handler/https"        = "vivaldi-stable.desktop";
     "x-scheme-handler/ftp"          = "vivaldi-stable.desktop";
@@ -79,6 +80,9 @@
     "text/xhtml+xml"                = "vivaldi-stable.desktop";
     "application/xhtml+xml"         = "vivaldi-stable.desktop";
     "application/xml"               = "vivaldi-stable.desktop";
+    # PDF
+    "application/pdf"               = "okular.desktop";
+    "application/x-pdf"             = "okular.desktop";
   };
 
   # hostId (muss eindeutig sein, für ZFS)

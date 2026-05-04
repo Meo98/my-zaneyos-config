@@ -6,6 +6,7 @@ in {
       enable = printEnable;
       drivers = [
         # pkgs.hplipWithPlugin
+        pkgs.cups-filters
       ];
     };
     avahi = {

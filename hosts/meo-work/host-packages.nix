@@ -34,6 +34,7 @@
     firefox                   # Der klassische, privatsphäre-orientierte Open-Source Browser
 
     # --- Produktivität & Office ---
+    okular                    # PDF-Viewer mit Annotationen, Formularen und Unterschriften-Support
     ferdium                   # All-in-one Messaging: WhatsApp, Telegram, Teams, Mail, etc.
     signal-desktop            # Signal Messenger (kein Web-Wrapper möglich, braucht native App)
     bitwarden-desktop         # Passwort-Manager zur sicheren Verwaltung deiner Zugangsdaten

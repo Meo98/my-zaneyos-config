@@ -145,6 +145,17 @@
   #animChoice = ../../modules/home/hyprland/animations-ml4w-fast.nix;
   #animChoice = ../../modules/home/hyprland/animations-ml4w-high.nix;
 
+  # Default Applications
+  mimeDefaultApps = {
+    "x-scheme-handler/http"         = "vivaldi-stable.desktop";
+    "x-scheme-handler/https"        = "vivaldi-stable.desktop";
+    "x-scheme-handler/about"        = "vivaldi-stable.desktop";
+    "x-scheme-handler/unknown"      = "vivaldi-stable.desktop";
+    "text/html"                     = "vivaldi-stable.desktop";
+    "application/pdf"               = "okular.desktop";
+    "application/x-pdf"             = "okular.desktop";
+  };
+
   # Set network hostId if required (needed for zfs)
   # Otherwise leave as-is
   hostId = "5ab03f50";

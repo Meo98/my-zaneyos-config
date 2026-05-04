@@ -89,6 +89,22 @@
     type = "basic";
   }];
 
+  # --- DRUCKER ---
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "werkstatt";
+        location = "Werkstatt";
+        deviceUri = "ipp://192.168.125.210/ipp/print";
+        model = "everywhere";
+        ppdOptions = {
+          PageSize = "A4";
+        };
+      }
+    ];
+    ensureDefaultPrinter = "werkstatt";
+  };
+
   # --- BENUTZER & GRUPPEN ---
   users.users."meo".extraGroups = [ "dialout" "input" "uinput" ];
 
@@ -99,5 +115,7 @@
     "x-scheme-handler/https" = "vivaldi-stable.desktop";
     "x-scheme-handler/about" = "vivaldi-stable.desktop";
     "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
+    "application/pdf" = "okular.desktop";
+    "application/x-pdf" = "okular.desktop";
   };
 }
