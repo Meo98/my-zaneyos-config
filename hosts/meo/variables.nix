@@ -152,8 +152,8 @@
     "x-scheme-handler/about"        = "vivaldi-stable.desktop";
     "x-scheme-handler/unknown"      = "vivaldi-stable.desktop";
     "text/html"                     = "vivaldi-stable.desktop";
-    "application/pdf"               = "okular.desktop";
-    "application/x-pdf"             = "okular.desktop";
+    "application/pdf"               = "okularApplication_pdf.desktop";
+    "application/x-pdf"             = "okularApplication_pdf.desktop";
   };
 
   # Set network hostId if required (needed for zfs)

@@ -96,7 +96,7 @@
         name = "werkstatt";
         location = "Werkstatt";
         deviceUri = "ipp://192.168.125.210/ipp/print";
-        model = "everywhere";
+        model = "drv:///sample.drv/generic.ppd";
         ppdOptions = {
           PageSize = "A4";
         };
@@ -115,7 +115,7 @@
     "x-scheme-handler/https" = "vivaldi-stable.desktop";
     "x-scheme-handler/about" = "vivaldi-stable.desktop";
     "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
-    "application/pdf" = "okular.desktop";
-    "application/x-pdf" = "okular.desktop";
+    "application/pdf" = "okularApplication_pdf.desktop";
+    "application/x-pdf" = "okularApplication_pdf.desktop";
   };
 }
